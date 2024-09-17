@@ -4,9 +4,9 @@ alias reload='. ~/.zshrc && echo "ZSH config reloaded from ~/.zshrc"'
 alias vault='kill `pgrep jetbrains` ; kill `pgrep pycharm` ; kill `pgrep idea` ;sleep 3 ;aws-vault exec vwmonitoreu-iot -- open  /Applications/JetBrains\ Toolbox.app'
 alias mvnci='mvn clean install -T 1C'
 alias mvnciu='mvn clean install -U -T 1C'
+alias stow='echo use gitstow'
 
 function gitstow () {
-  echo "$1"
   stow "$1"  
   git add .  
   git commit -m "update"  
