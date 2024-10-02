@@ -1,5 +1,6 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
+require("java").setup()
 Lsp = require("lspconfig")
 vim.cmd.colorscheme("catppuccin")
 Lsp.jdtls.setup({})
