@@ -16,6 +16,7 @@ function gitstow () {
 export ZSH="$HOME/.oh-my-zsh"
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
+export AWS_PROFILE=vwdpeu-iot
 
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
