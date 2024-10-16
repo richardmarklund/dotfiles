@@ -10,9 +10,6 @@ return {
     'MunifTanjim/nui.nvim',
   },
   cmd = 'Neotree',
-  keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
-  },
   opts = {
     filesystem = {
       window = {
@@ -22,4 +19,17 @@ return {
       },
     },
   },
+  config = function()
+    require('neo-tree').setup {
+      filesystem = {
+        window = {
+          mappings = {
+            -- disable fuzzy finder
+            ['/'] = 'noop',
+          },
+        },
+        group_empty_dirs = true, -- when true, empty folders will be grouped together
+      },
+    }
+  end,
 }

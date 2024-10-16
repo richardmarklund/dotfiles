@@ -14,10 +14,25 @@ function gitstow () {
 }
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+#
+# vim in zsh
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
-export AWS_PROFILE=vwdpeu-iot
 
+export configendpoints=https://api.eu-west-1.connect.wirelesscar.cloud/config/config/,https://api.us-east-1.connect.wirelesscar.cloud/config/config/
+export configrolearns=arn:aws:iam::539392581711:role/CentralConfigGet
+export environment=iot
+export site=eu-west-1
+export solution=vwdpeu
+export zone=wcar
+export bucketName=vwdpeu-iot-polo-testbot-keystores-bucket
+export endpoint=https://api.rvs-iot.eu.wcardp.io/
+export mqttHost="ssl://a31at0fyhjuzrw-ats.iot.eu-west-1.amazonaws.com"
+export mqttBrokerSolution=vwdpeu
+# Used to fetch cached token in service account
+export sasClientId="af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"
+export sasTokenCache="wcar-eu-west-1-vwdpeu-iot-rs-autobot-common-M2MTokenCacheV2-QLHEN6HJ2NF1-CacheStorageV2-2XX9XDA2MGF3"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes

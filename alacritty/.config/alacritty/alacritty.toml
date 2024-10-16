@@ -1,0 +1,4 @@
+normal = { family = "MesloLGL Nerd Font", style = "Bold" }
+normal = { family = "MesloLGL Nerd Font", style = "Italic" }
+normal = { family = "MesloLGL Nerd Font", style = "Bold Italic" }
+normal = { family = "MesloLGL Nerd Font", style = "Regular" }
