@@ -28,7 +28,7 @@ return {
             ['/'] = 'noop',
           },
         },
-        group_empty_dirs = true, -- when true, empty folders will be grouped together
+        group_empty_dirs = false, -- when true, empty folders will be grouped together
       },
     }
   end,

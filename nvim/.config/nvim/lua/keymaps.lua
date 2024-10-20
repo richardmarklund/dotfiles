@@ -31,6 +31,15 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Open preview
+vim.keymap.set('n', 'gp', "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
+
+-- Mapping for quit and save
+vim.keymap.set('n', 'wq', '<cmd>q<CR>', { desc = 'Quick for :q' })
+vim.keymap.set('n', 'ss', '<cmd>w<CR>', { desc = 'Quick for :w' })
+-- Quick goto
+vim.keymap.set('n', 'nn', '<cmd>:Neotree dir=~/dotfiles/nvim/.config/nvim/<CR>', { desc = 'Go to nvim folder' })
+vim.keymap.set('n', 'ng', '<cmd>:Neotree dir=~/git<CR>', { desc = 'Go to git folder' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

@@ -36,6 +36,7 @@ return {
       'hrsh7th/cmp-path',
     },
     config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
@@ -110,6 +111,7 @@ return {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'buffer' },
         },
       }
     end,

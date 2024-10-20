@@ -4,7 +4,6 @@ alias reload='. ~/.zshrc && echo "ZSH config reloaded from ~/.zshrc"'
 alias vault='kill `pgrep jetbrains` ; kill `pgrep pycharm` ; kill `pgrep idea` ;sleep 3 ;aws-vault exec vwmonitoreu-iot -- open  /Applications/JetBrains\ Toolbox.app'
 alias mvnci='mvn clean install -T 1C'
 alias mvnciu='mvn clean install -U -T 1C'
-alias stow='echo use gitstow'
 
 function gitstow () {
   stow "$1"  
@@ -17,7 +16,6 @@ export ZSH="$HOME/.oh-my-zsh"
 #
 # vim in zsh
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
@@ -116,6 +114,4 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

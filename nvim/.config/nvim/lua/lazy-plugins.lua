@@ -22,6 +22,17 @@ require('lazy').setup({
 
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
+
+  require 'custom/plugins/transperant',
+
+  require 'custom/plugins/friendly-snippets',
+
+  require 'custom/plugins/goto-preview',
+
+  require 'custom/plugins/lsp-signature',
+
+  require 'custom/plugins/harpoon',
+
   require 'custom/plugins/alpha-startscreen',
 
   require 'custom/plugins/test',
@@ -31,8 +42,6 @@ require('lazy').setup({
   require 'custom/plugins/catppuccin',
 
   require 'custom/plugins/tmux-nvim-navigator',
-
-  require 'custom/plugins/nvim-java',
 
   require 'kickstart/plugins/gitsigns',
 
@@ -67,7 +76,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
