@@ -37,9 +37,6 @@ vim.keymap.set('n', 'gp', "<cmd>lua require('goto-preview').goto_preview_definit
 -- Mapping for quit and save
 vim.keymap.set('n', 'wq', '<cmd>q<CR>', { desc = 'Quick for :q' })
 vim.keymap.set('n', 'ss', '<cmd>w<CR>', { desc = 'Quick for :w' })
--- Quick goto
-vim.keymap.set('n', 'nn', '<cmd>:Neotree dir=~/dotfiles/nvim/.config/nvim/<CR>', { desc = 'Go to nvim folder' })
-vim.keymap.set('n', 'ng', '<cmd>:Neotree dir=~/git<CR>', { desc = 'Go to git folder' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

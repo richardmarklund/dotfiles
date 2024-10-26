@@ -4,7 +4,8 @@ alias reload='. ~/.zshrc && echo "ZSH config reloaded from ~/.zshrc"'
 alias vault='kill `pgrep jetbrains` ; kill `pgrep pycharm` ; kill `pgrep idea` ;sleep 3 ;aws-vault exec vwmonitoreu-iot -- open  /Applications/JetBrains\ Toolbox.app'
 alias mvnci='mvn clean install -T 1C'
 alias mvnciu='mvn clean install -U -T 1C'
-
+alias cd='z'
+nerdfetch
 function gitstow () {
   stow "$1"  
   git add .  
@@ -20,6 +21,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="Agnoster"
+JAVA_HOME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -115,3 +117,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)
+export JAVA_HOME="/opt/homebrew/Cellar/openjdk@17/17.0.13/libexec/openjdk.jdk/Contents/Home/"
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH" 

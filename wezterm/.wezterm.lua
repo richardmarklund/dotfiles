@@ -10,7 +10,7 @@ local config = wezterm.config_builder()
 config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font("MesloLGL Nerd Font")
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.85
-
+config.send_composed_key_when_left_alt_is_pressed = true
+config.send_composed_key_when_right_alt_is_pressed = true
 -- and finally, return the configuration to wezterm
 return config
