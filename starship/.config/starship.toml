@@ -1,3 +1,9 @@
+[time]
+format = '[ $time ]($style) '
+time_format = '%d %b %H:%M'
+style = 'white'
+disabled = false 
+
 [memory_usage]
 disabled = false 
 
