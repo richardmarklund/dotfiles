@@ -11,8 +11,6 @@
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
 
-  require 'custom/plugins/devsecinspect',
-
   require 'custom/plugins/friendly-snippets',
 
   require 'custom/plugins/goto-preview',
