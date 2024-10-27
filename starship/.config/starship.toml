@@ -1,3 +1,9 @@
+[memory_usage]
+disabled = false 
+
+[[battery.display]]
+threshold = 50 
+
 [aws]
 disabled = true
 
@@ -6,133 +12,133 @@ disabled = true
 
 # ORDER
 [bun]
-disabled = false
+disabled = true
 
 [buf]
-disabled = false
+disabled = true
 
 [cmake]
-disabled = false
+disabled = true
 
 [cobol]
-disabled = false
+disabled = true
 
 [crystal]
-disabled = false
+disabled = true
 
 [daml]
-disabled = false
+disabled = true
 
 [dart]
-disabled = false
+disabled = true
 
 [deno]
-disabled = false
+disabled = true
 
 [dotnet]
-disabled = false
+disabled = true
 
 [elixir]
-disabled = false
+disabled = true
 
 [elm]
-disabled = false
+disabled = true
 
 [erlang]
-disabled = false
+disabled = true
 
 [fennel]
-disabled = false
+disabled = true
 
 [gleam]
-disabled = false
+disabled = true
 
 [golang]
-disabled = false
+disabled = true
 
 [gradle]
-disabled = false
+disabled = true
 
 [haxe]
-disabled = false
+disabled = true
 
 [helm]
-disabled = false
+disabled = true
 
 [java]
-disabled = false
+disabled = true
 
 [julia]
-disabled = false
+disabled = true
 
 [kotlin]
-disabled = false
+disabled = true
 
 [lua]
-disabled = false
+disabled = true
 
 [meson]
-disabled = false
+disabled = true
 
 [nim]
-disabled = false
+disabled = true
 
 [nodejs]
-disabled = false
+disabled = true
 
 [ocaml]
-disabled = false
+disabled = true
 
 [opa]
-disabled = false
+disabled = true
 
 [perl]
-disabled = false
+disabled = true
 
 [php]
-disabled = false
+disabled = true
 
 [pulumi]
-disabled = false
+disabled = true
 
 [purescript]
-disabled = false
+disabled = true
 
 [python]
-disabled = false
+disabled = true
 
 [quarto]
-disabled = false
+disabled = true
 
 [raku]
-disabled = false
+disabled = true
 
 [red]
-disabled = false
+disabled = true
 
 [rlang]
-disabled = false
+disabled = true
 
 [ruby]
-disabled = false
+disabled = true
 
 [rust]
-disabled = false
+disabled = true
 
 [solidity]
-disabled = false
+disabled = true
 
 [typst]
-disabled = false
+disabled = true
 
 [swift]
-disabled = false
+disabled = true
 
 [vagrant]
-disabled = false
+disabled = true
 
 [vlang]
-disabled = false
+disabled = true
 
 [zig]
-disabled = false
+disabled = true

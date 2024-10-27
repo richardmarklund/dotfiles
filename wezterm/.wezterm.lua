@@ -14,18 +14,18 @@ config.leader = { key = "a", mods = "CTRL" }
 config.keys = {
 	{
 		key = "y",
-		mods = "CTRL",
+		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Left", 5 }),
 	},
 	{
 		key = "u",
-		mods = "CTRL",
+		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Down", 5 }),
 	},
-	{ key = "i", mods = "CTRL", action = act.AdjustPaneSize({ "Up", 5 }) },
+	{ key = "i", mods = "CTRL|CMD", action = act.AdjustPaneSize({ "Up", 5 }) },
 	{
 		key = "o",
-		mods = "CTRL",
+		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
