@@ -12,10 +12,8 @@ function gitstow () {
   git commit -m "update"  
   git push
 }
-# Path to your oh-my-zsh installation.
+
 export ZSH="$HOME/.oh-my-zsh"
-#
-# vim in zsh
 
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
