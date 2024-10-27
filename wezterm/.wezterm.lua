@@ -2,14 +2,32 @@ local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font("MesloLGL Nerd Font")
 config.window_decorations = "RESIZE"
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
+config.hide_tab_bar_if_only_one_tab = true
+config.leader = { key = "a", mods = "CTRL" }
 config.keys = {
-	-- This will create a new split and run your default program inside it
+	{
+		key = "y",
+		mods = "CTRL",
+		action = act.AdjustPaneSize({ "Left", 5 }),
+	},
+	{
+		key = "u",
+		mods = "CTRL",
+		action = act.AdjustPaneSize({ "Down", 5 }),
+	},
+	{ key = "i", mods = "CTRL", action = act.AdjustPaneSize({ "Up", 5 }) },
+	{
+		key = "o",
+		mods = "CTRL",
+		action = act.AdjustPaneSize({ "Right", 5 }),
+	},
 	{
 		key = "v",
 		mods = "CTRL",
@@ -20,7 +38,19 @@ config.keys = {
 		mods = "CTRL",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
-	{ key = "c", mods = "CTRL", action = wezterm.action.CopyMode("MoveForwardWord") },
+	{ key = "g", mods = "CTRL", action = wezterm.action.ActivateCopyMode },
+	{
+		key = "y",
+		mods = "",
+		action = wezterm.action_callback(function(window, pane)
+			local has_selection = window:get_selection_text_for_pane(pane) ~= ""
+			if has_selection then
+				window:perform_action(act.CopyTo("ClipboardAndPrimarySelection"), pane)
+			else
+				window:perform_action(act.SendKey({ key = "y", mods = "" }), pane)
+			end
+		end),
+	},
 	{
 		key = "f",
 		mods = "CTRL",
