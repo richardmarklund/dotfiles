@@ -4,6 +4,14 @@ local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smar
 local config = wezterm.config_builder()
 local act = wezterm.action
 
+local mux = wezterm.mux
+
+wezterm.on("gui-startup", function(cmd)
+	local _, _, window = mux.spawn_window(cmd or {})
+	window:gui_window():maximize()
+	window:gui_window():toggle_fullscreen()
+end)
+
 config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font("MesloLGL Nerd Font")
 config.window_decorations = "RESIZE"

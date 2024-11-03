@@ -11,7 +11,7 @@ disabled = false
 threshold = 50 
 
 [aws]
-disabled = true
+disabled = false 
 
 [package]
 disabled = true
