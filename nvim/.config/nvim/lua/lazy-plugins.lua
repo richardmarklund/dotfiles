@@ -13,19 +13,17 @@ require('lazy').setup({
 
   require 'custom/plugins/friendly-snippets',
 
+  require 'custom/plugins/arrow',
+
   require 'custom/plugins/goto-preview',
 
   require 'custom/plugins/lsp-signature',
-
-  require 'custom/plugins/harpoon',
 
   require 'custom/plugins/alpha-startscreen',
 
   require 'custom/plugins/catppuccin',
 
   require 'custom/plugins/test',
-
-  require 'custom/plugins/neorg',
 
   require 'custom/plugins/tmux-nvim-navigator',
 
