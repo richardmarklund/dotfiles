@@ -11,6 +11,14 @@
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
 
+  require 'custom/plugins/obsidian',
+
+  require 'custom/plugins/markview',
+
+  require 'custom/plugins/maven',
+
+  require 'custom/plugins/curl',
+
   require 'custom/plugins/friendly-snippets',
 
   require 'custom/plugins/arrow',

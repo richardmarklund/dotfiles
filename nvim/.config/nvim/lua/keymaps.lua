@@ -53,3 +53,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.keymap.set('n', '<leader>e', ':Neotree toggle <CR>', { desc = 'Toggle file explorer' })
 -- vim: ts=2 sts=2 sw=2 et
+vim.keymap.set(
+  'n',
+  '<leader>ni',
+  ':e /Users/ab000717/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian/wireless car/index.md<CR>',
+  { desc = 'Open [n]otes [i]ndex file' }
+)
+vim.keymap.set('n', '<leader>nt', ':ObsidianToday<CR>', { desc = 'Open [n]otes [t]oday' })

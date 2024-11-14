@@ -37,7 +37,7 @@ return {
       vim.keymap.set('n', '<leader>to', "<Esc><Cmd> lua require('neotest').output.open()<CR>", { desc = 'Show output', noremap = true, silent = true })
       vim.keymap.set(
         'n',
-        '<leader>NO',
+        '<leader>tO',
         "<Esc><Cmd> lua require('neotest').output.open({ enter = true })<CR>",
         { desc = 'Open output', noremap = true, silent = true }
       )

@@ -293,3 +293,153 @@ nvim
 ls
 cd ..
 git status
+git add .
+git commit -m "do stuff"
+git push
+cd ..
+cd git rvs
+cd git rvs-service
+nvim
+k
+mvn clean install
+kinit
+mvn clean install
+mvn spotless:apply
+cd vehicle-messages/
+mvn clean install
+cd ..
+mvn spotless:apply
+cd vehicle-messages/
+mvn clean install
+cd ..
+git checkout -b spotless_only_in_root
+git add .
+git status
+git kkgit restore --staged README
+git restore --staged README
+git restore --staged README.md
+git status
+git checkout README.md
+git status
+git commit -m "fix so spotless does not run in child poms"
+git push
+we auth
+git push
+:q
+nvim
+cd vhr-service
+git checkout master
+git pull
+git checkout -b spotless_only_in_root
+cd vhr-service
+mvn spotless:apply
+mvn clean install
+git add .
+git commit -m "fix so spotless does not run in child poms"
+git push
+cd vehicle-messages/
+mvn clean install
+cd rvs-service
+git checkout upgrade_protobuf
+git checkout master
+git pull
+git checkout upgrade_protobuf
+git pull
+mvn clean install -U
+nvim
+cd rvs-service
+nvim
+mvn eclipse:eclipse
+mvn clean install -U
+mvn dependency:analyze
+mvn dependency:tree
+cd vehicle-messages/
+mvn dependency:tree
+cd ..
+mvn clean install -U
+mvn spotless:apply
+mvn clean install -U
+mvn spotless:apply
+mvn clean install -U
+mvn spotless:apply
+mvnci
+mvn clean install -U
+cd vehicle-messages/
+mvn clean install -U
+cd ..
+mvn clean install -U
+git status
+mvn clean install -U
+git status
+git add .
+git pull
+git checkout .
+git status
+git restore --staged pom.xml
+git pull
+git 
+git pull
+git checkout .
+git pull
+mvn clean install -U
+mvn dependency:tree
+git pull
+cd uplink-message-handler/
+mvn eclipse:eclipse
+nvim
+ls
+http get --headers [Authorization eyJhbGciOiJSUzI1NiIsImtpZCI6IkFjY2VzcyBNYW5hZ2VtZW50IDIwMjQtMDktMjkgMDk6MTQ6MzIiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJzZXJ2aWNlOldpcmVsZXNzQ2FyL1ZlaGljbGUgU3RhdHVzIiwiYXVkLWFsaWFzIjoic2VydmljZTpXaXJlbGVzc0Nhci9WZWhpY2xlIFN0YXR1cyIsImV4cCI6MTczMDkxNTQ3MiwiaWF0IjoxNzMwOTEzNjcyLCJpc3MiOiJodHRwczovL2FwaS5hbS53aXJlbGVzc2Nhci5jbG91ZC9vYXV0aCIsImp0aSI6Imh6VzVkT043UVJUcUpOVlY2NHNPaXciLCJraWQiOiJBY2Nlc3MgTWFuYWdlbWVudCAyMDI0LTA5LTI5IDA5OjE0OjMyIiwibmJmIjoxNzMwOTEzNjcyLCJwb2xpY3kiOlt7ImFjdGlvbiI6IlJlYWQgU3RhdHVzIiwidGVuYW50IjoiL3Z3L2JhZGdlci9ldS9pb3QifSx7ImFjdGlvbiI6IldyaXRlIFN0YXR1cyIsInRlbmFudCI6Ii92dy9iYWRnZXIvZXUvaW90In1dLCJzdWIiOiJhY3RvcjpXaXJlbGVzc0NhciBWVyBRQS9SZW1vdGUgVmVoaWNsZSBTdGF0dXMgSW9UIiwic3ViLWFsaWFzIjoiYWN0b3I6V2lyZWxlc3NDYXIgVlcgUUEvUmVtb3RlIFZlaGljbGUgU3RhdHVzIElvVCJ9.fHn0lwC1kLOF_oHyWESsgk8OF04jW2Ofry7fFXk55iwxEi6BxZq4291QN6bdJw1XHEfmVHuHFqVA41zYbBEsZcxEvWBbBpGDgiUDnQZwzNQSGVcePt0i83Xzm-yV_hnL0H9qoao72RqkxaYun4xgZenhYJrD1K43CORL8mLk5Rs9l9DGoFVYcpSLy-CkLIir5ogZSogo1hAVAYW1A4s9pzgj0gR2O_6x1syxULDbIlmPm8XUpWg8LUCkXFjoW-lu1iIwB8CQextukkR7MENdl2WV4rZJYkk2fusFhqgFVUuo7p5VWPrRz2xOsr8K7hiBf9IzsXEgb8oIqVzZKFpcu3YCDNcyHxqmItmmvaLJ_MPmCKYrw2pQpXA2v38__zzLkSwJ6uAdFiM_lpnsa_nsKHhTMPz4oFVtssJR7hXypLqgRxsoCozlJWbEZIZ4I9eOT-BVQbQol66mOu1rD9Bzjx4SV4GsaI7n2uBF0AoIrk6nJSZLQ790PwmXbeq8F4iBvPHLyscA7MSk7ySmhTs4XY5mK6gC9nkMn0sZMym0NH6bgwq2FPhMY5WtgkoPcil8NAy1Z7-L5evCMgMy1xH__TnNCMoJsiNlKpyqsmWYbaHfiwfzNwVGT47iGbCdeY1Ie8RNzbizwVndS-vfrG_adXea9nRWSrukM5VAsAeU99U]https://api.vehicle-status.wirelesscar.cloud/vw-badg-eu-iot/vehicles/HZWBDGRHMK8258642
+http get --headers [Authorization eyJhbGciOiJSUzI1NiIsImtpZCI6IkFjY2VzcyBNYW5hZ2VtZW50IDIwMjQtMDktMjkgMDk6MTQ6MzIiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJzZXJ2aWNlOldpcmVsZXNzQ2FyL1ZlaGljbGUgU3RhdHVzIiwiYXVkLWFsaWFzIjoic2VydmljZTpXaXJlbGVzc0Nhci9WZWhpY2xlIFN0YXR1cyIsImV4cCI6MTczMDkxNTQ3MiwiaWF0IjoxNzMwOTEzNjcyLCJpc3MiOiJodHRwczovL2FwaS5hbS53aXJlbGVzc2Nhci5jbG91ZC9vYXV0aCIsImp0aSI6Imh6VzVkT043UVJUcUpOVlY2NHNPaXciLCJraWQiOiJBY2Nlc3MgTWFuYWdlbWVudCAyMDI0LTA5LTI5IDA5OjE0OjMyIiwibmJmIjoxNzMwOTEzNjcyLCJwb2xpY3kiOlt7ImFjdGlvbiI6IlJlYWQgU3RhdHVzIiwidGVuYW50IjoiL3Z3L2JhZGdlci9ldS9pb3QifSx7ImFjdGlvbiI6IldyaXRlIFN0YXR1cyIsInRlbmFudCI6Ii92dy9iYWRnZXIvZXUvaW90In1dLCJzdWIiOiJhY3RvcjpXaXJlbGVzc0NhciBWVyBRQS9SZW1vdGUgVmVoaWNsZSBTdGF0dXMgSW9UIiwic3ViLWFsaWFzIjoiYWN0b3I6V2lyZWxlc3NDYXIgVlcgUUEvUmVtb3RlIFZlaGljbGUgU3RhdHVzIElvVCJ9.fHn0lwC1kLOF_oHyWESsgk8OF04jW2Ofry7fFXk55iwxEi6BxZq4291QN6bdJw1XHEfmVHuHFqVA41zYbBEsZcxEvWBbBpGDgiUDnQZwzNQSGVcePt0i83Xzm-yV_hnL0H9qoao72RqkxaYun4xgZenhYJrD1K43CORL8mLk5Rs9l9DGoFVYcpSLy-CkLIir5ogZSogo1hAVAYW1A4s9pzgj0gR2O_6x1syxULDbIlmPm8XUpWg8LUCkXFjoW-lu1iIwB8CQextukkR7MENdl2WV4rZJYkk2fusFhqgFVUuo7p5VWPrRz2xOsr8K7hiBf9IzsXEgb8oIqVzZKFpcu3YCDNcyHxqmItmmvaLJ_MPmCKYrw2pQpXA2v38__zzLkSwJ6uAdFiM_lpnsa_nsKHhTMPz4oFVtssJR7hXypLqgRxsoCozlJWbEZIZ4I9eOT-BVQbQol66mOu1rD9Bzjx4SV4GsaI7n2uBF0AoIrk6nJSZLQ790PwmXbeq8F4iBvPHLyscA7MSk7ySmhTs4XY5mK6gC9nkMn0sZMym0NH6bgwq2FPhMY5WtgkoPcil8NAy1Z7-L5evCMgMy1xH__TnNCMoJsiNlKpyqsmWYbaHfiwfzNwVGT47iGbCdeY1Ie8RNzbizwVndS-vfrG_adXea9nRWSrukM5VAsAeU99U] https://api.vehicle-status.wirelesscar.cloud/vw-badg-eu-iot/vehicles/HZWBDGRHMK8258642
+http get --headers [Authorization Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFjY2VzcyBNYW5hZ2VtZW50IDIwMjQtMDktMjkgMDk6MTQ6MzIiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJzZXJ2aWNlOldpcmVsZXNzQ2FyL1ZlaGljbGUgU3RhdHVzIiwiYXVkLWFsaWFzIjoic2VydmljZTpXaXJlbGVzc0Nhci9WZWhpY2xlIFN0YXR1cyIsImV4cCI6MTczMDkxNTQ3MiwiaWF0IjoxNzMwOTEzNjcyLCJpc3MiOiJodHRwczovL2FwaS5hbS53aXJlbGVzc2Nhci5jbG91ZC9vYXV0aCIsImp0aSI6Imh6VzVkT043UVJUcUpOVlY2NHNPaXciLCJraWQiOiJBY2Nlc3MgTWFuYWdlbWVudCAyMDI0LTA5LTI5IDA5OjE0OjMyIiwibmJmIjoxNzMwOTEzNjcyLCJwb2xpY3kiOlt7ImFjdGlvbiI6IlJlYWQgU3RhdHVzIiwidGVuYW50IjoiL3Z3L2JhZGdlci9ldS9pb3QifSx7ImFjdGlvbiI6IldyaXRlIFN0YXR1cyIsInRlbmFudCI6Ii92dy9iYWRnZXIvZXUvaW90In1dLCJzdWIiOiJhY3RvcjpXaXJlbGVzc0NhciBWVyBRQS9SZW1vdGUgVmVoaWNsZSBTdGF0dXMgSW9UIiwic3ViLWFsaWFzIjoiYWN0b3I6V2lyZWxlc3NDYXIgVlcgUUEvUmVtb3RlIFZlaGljbGUgU3RhdHVzIElvVCJ9.fHn0lwC1kLOF_oHyWESsgk8OF04jW2Ofry7fFXk55iwxEi6BxZq4291QN6bdJw1XHEfmVHuHFqVA41zYbBEsZcxEvWBbBpGDgiUDnQZwzNQSGVcePt0i83Xzm-yV_hnL0H9qoao72RqkxaYun4xgZenhYJrD1K43CORL8mLk5Rs9l9DGoFVYcpSLy-CkLIir5ogZSogo1hAVAYW1A4s9pzgj0gR2O_6x1syxULDbIlmPm8XUpWg8LUCkXFjoW-lu1iIwB8CQextukkR7MENdl2WV4rZJYkk2fusFhqgFVUuo7p5VWPrRz2xOsr8K7hiBf9IzsXEgb8oIqVzZKFpcu3YCDNcyHxqmItmmvaLJ_MPmCKYrw2pQpXA2v38__zzLkSwJ6uAdFiM_lpnsa_nsKHhTMPz4oFVtssJR7hXypLqgRxsoCozlJWbEZIZ4I9eOT-BVQbQol66mOu1rD9Bzjx4SV4GsaI7n2uBF0AoIrk6nJSZLQ790PwmXbeq8F4iBvPHLyscA7MSk7ySmhTs4XY5mK6gC9nkMn0sZMym0NH6bgwq2FPhMY5WtgkoPcil8NAy1Z7-L5evCMgMy1xH__TnNCMoJsiNlKpyqsmWYbaHfiwfzNwVGT47iGbCdeY1Ie8RNzbizwVndS-vfrG_adXea9nRWSrukM5VAsAeU99U] https://api.vehicle-status.wirelesscar.cloud/vw-badg-eu-iot/vehicles/HZWBDGRHMK8258642
+http get --headers [Authorization Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFjY2VzcyBNYW5hZ2VtZW50IDIwMjQtMDktMjkgMDk6MTQ6MzIiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJzZXJ2aWNlOldpcmVsZXNzQ2FyL1ZlaGljbGUgU3RhdHVzIiwiYXVkLWFsaWFzIjoic2VydmljZTpXaXJlbGVzc0Nhci9WZWhpY2xlIFN0YXR1cyIsImV4cCI6MTczMDkxNTQ3MiwiaWF0IjoxNzMwOTEzNjcyLCJpc3MiOiJodHRwczovL2FwaS5hbS53aXJlbGVzc2Nhci5jbG91ZC9vYXV0aCIsImp0aSI6Imh6VzVkT043UVJUcUpOVlY2NHNPaXciLCJraWQiOiJBY2Nlc3MgTWFuYWdlbWVudCAyMDI0LTA5LTI5IDA5OjE0OjMyIiwibmJmIjoxNzMwOTEzNjcyLCJwb2xpY3kiOlt7ImFjdGlvbiI6IlJlYWQgU3RhdHVzIiwidGVuYW50IjoiL3Z3L2JhZGdlci9ldS9pb3QifSx7ImFjdGlvbiI6IldyaXRlIFN0YXR1cyIsInRlbmFudCI6Ii92dy9iYWRnZXIvZXUvaW90In1dLCJzdWIiOiJhY3RvcjpXaXJlbGVzc0NhciBWVyBRQS9SZW1vdGUgVmVoaWNsZSBTdGF0dXMgSW9UIiwic3ViLWFsaWFzIjoiYWN0b3I6V2lyZWxlc3NDYXIgVlcgUUEvUmVtb3RlIFZlaGljbGUgU3RhdHVzIElvVCJ9.fHn0lwC1kLOF_oHyWESsgk8OF04jW2Ofry7fFXk55iwxEi6BxZq4291QN6bdJw1XHEfmVHuHFqVA41zYbBEsZcxEvWBbBpGDgiUDnQZwzNQSGVcePt0i83Xzm-yV_hnL0H9qoao72RqkxaYun4xgZenhYJrD1K43CORL8mLk5Rs9l9DGoFVYcpSLy-CkLIir5ogZSogo1hAVAYW1A4s9pzgj0gR2O_6x1syxULDbIlmPm8XUpWg8LUCkXFjoW-lu1iIwB8CQextukkR7MENdl2WV4rZJYkk2fusFhqgFVUuo7p5VWPrRz2xOsr8K7hiBf9IzsXEgb8oIqVzZKFpcu3YCDNcyHxqmItmmvaLJ_MPmCKYrw2pQpXA2v38__zzLkSwJ6uAdFiM_lpnsa_nsKHhTMPz4oFVtssJR7hXypLqgRxsoCozlJWbEZIZ4I9eOT-BVQbQol66mOu1rD9Bzjx4SV4GsaI7n2uBF0AoIrk6nJSZLQ790PwmXbeq8F4iBvPHLyscA7MSk7ySmhTs4XY5mK6gC9nkMn0sZMym0NH6bgwq2FPhMY5WtgkoPcil8NAy1Z7-L5evCMgMy1xH__TnNCMoJsiNlKpyqsmWYbaHfiwfzNwVGT47iGbCdeY1Ie8RNzbizwVndS-vfrG_adXea9nRWSrukM5VAsAeU99U] https://api.vehicle-status.wirelesscar.cloud/vw-badg-eu-iot/vehicles/HZWBDGRHMK8258642/status
+http get --headers [Authorization Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFjY2VzcyBNYW5hZ2VtZW50IDIwMjQtMDktMjkgMDk6MTQ6MzIiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJzZXJ2aWNlOldpcmVsZXNzQ2FyL1ZlaGljbGUgU3RhdHVzIiwiYXVkLWFsaWFzIjoic2VydmljZTpXaXJlbGVzc0Nhci9WZWhpY2xlIFN0YXR1cyIsImV4cCI6MTczMDkxNTQ3MiwiaWF0IjoxNzMwOTEzNjcyLCJpc3MiOiJodHRwczovL2FwaS5hbS53aXJlbGVzc2Nhci5jbG91ZC9vYXV0aCIsImp0aSI6Imh6VzVkT043UVJUcUpOVlY2NHNPaXciLCJraWQiOiJBY2Nlc3MgTWFuYWdlbWVudCAyMDI0LTA5LTI5IDA5OjE0OjMyIiwibmJmIjoxNzMwOTEzNjcyLCJwb2xpY3kiOlt7ImFjdGlvbiI6IlJlYWQgU3RhdHVzIiwidGVuYW50IjoiL3Z3L2JhZGdlci9ldS9pb3QifSx7ImFjdGlvbiI6IldyaXRlIFN0YXR1cyIsInRlbmFudCI6Ii92dy9iYWRnZXIvZXUvaW90In1dLCJzdWIiOiJhY3RvcjpXaXJlbGVzc0NhciBWVyBRQS9SZW1vdGUgVmVoaWNsZSBTdGF0dXMgSW9UIiwic3ViLWFsaWFzIjoiYWN0b3I6V2lyZWxlc3NDYXIgVlcgUUEvUmVtb3RlIFZlaGljbGUgU3RhdHVzIElvVCJ9.fHn0lwC1kLOF_oHyWESsgk8OF04jW2Ofry7fFXk55iwxEi6BxZq4291QN6bdJw1XHEfmVHuHFqVA41zYbBEsZcxEvWBbBpGDgiUDnQZwzNQSGVcePt0i83Xzm-yV_hnL0H9qoao72RqkxaYun4xgZenhYJrD1K43CORL8mLk5Rs9l9DGoFVYcpSLy-CkLIir5ogZSogo1hAVAYW1A4s9pzgj0gR2O_6x1syxULDbIlmPm8XUpWg8LUCkXFjoW-lu1iIwB8CQextukkR7MENdl2WV4rZJYkk2fusFhqgFVUuo7p5VWPrRz2xOsr8K7hiBf9IzsXEgb8oIqVzZKFpcu3YCDNcyHxqmItmmvaLJ_MPmCKYrw2pQpXA2v38__zzLkSwJ6uAdFiM_lpnsa_nsKHhTMPz4oFVtssJR7hXypLqgRxsoCozlJWbEZIZ4I9eOT-BVQbQol66mOu1rD9Bzjx4SV4GsaI7n2uBF0AoIrk6nJSZLQ790PwmXbeq8F4iBvPHLyscA7MSk7ySmhTs4XY5mK6gC9nkMn0sZMym0NH6bgwq2FPhMY5WtgkoPcil8NAy1Z7-L5evCMgMy1xH__TnNCMoJsiNlKpyqsmWYbaHfiwfzNwVGT47iGbCdeY1Ie8RNzbizwVndS-vfrG_adXea9nRWSrukM5VAsAeU99U] https://api.vehicle-status.wirelesscar.cloud/vw-badg-eu-iot/vehicles/5B09254D1EAC980DE934E5013D75FCA2/status
+http get --headers [Authorization eyJhbGciOiJSUzI1NiIsImtpZCI6IkFjY2VzcyBNYW5hZ2VtZW50IDIwMjQtMDktMjkgMDk6MTQ6MzIiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJzZXJ2aWNlOldpcmVsZXNzQ2FyL1ZlaGljbGUgU3RhdHVzIiwiYXVkLWFsaWFzIjoic2VydmljZTpXaXJlbGVzc0Nhci9WZWhpY2xlIFN0YXR1cyIsImV4cCI6MTczMDkxNTQ3MiwiaWF0IjoxNzMwOTEzNjcyLCJpc3MiOiJodHRwczovL2FwaS5hbS53aXJlbGVzc2Nhci5jbG91ZC9vYXV0aCIsImp0aSI6Imh6VzVkT043UVJUcUpOVlY2NHNPaXciLCJraWQiOiJBY2Nlc3MgTWFuYWdlbWVudCAyMDI0LTA5LTI5IDA5OjE0OjMyIiwibmJmIjoxNzMwOTEzNjcyLCJwb2xpY3kiOlt7ImFjdGlvbiI6IlJlYWQgU3RhdHVzIiwidGVuYW50IjoiL3Z3L2JhZGdlci9ldS9pb3QifSx7ImFjdGlvbiI6IldyaXRlIFN0YXR1cyIsInRlbmFudCI6Ii92dy9iYWRnZXIvZXUvaW90In1dLCJzdWIiOiJhY3RvcjpXaXJlbGVzc0NhciBWVyBRQS9SZW1vdGUgVmVoaWNsZSBTdGF0dXMgSW9UIiwic3ViLWFsaWFzIjoiYWN0b3I6V2lyZWxlc3NDYXIgVlcgUUEvUmVtb3RlIFZlaGljbGUgU3RhdHVzIElvVCJ9.fHn0lwC1kLOF_oHyWESsgk8OF04jW2Ofry7fFXk55iwxEi6BxZq4291QN6bdJw1XHEfmVHuHFqVA41zYbBEsZcxEvWBbBpGDgiUDnQZwzNQSGVcePt0i83Xzm-yV_hnL0H9qoao72RqkxaYun4xgZenhYJrD1K43CORL8mLk5Rs9l9DGoFVYcpSLy-CkLIir5ogZSogo1hAVAYW1A4s9pzgj0gR2O_6x1syxULDbIlmPm8XUpWg8LUCkXFjoW-lu1iIwB8CQextukkR7MENdl2WV4rZJYkk2fusFhqgFVUuo7p5VWPrRz2xOsr8K7hiBf9IzsXEgb8oIqVzZKFpcu3YCDNcyHxqmItmmvaLJ_MPmCKYrw2pQpXA2v38__zzLkSwJ6uAdFiM_lpnsa_nsKHhTMPz4oFVtssJR7hXypLqgRxsoCozlJWbEZIZ4I9eOT-BVQbQol66mOu1rD9Bzjx4SV4GsaI7n2uBF0AoIrk6nJSZLQ790PwmXbeq8F4iBvPHLyscA7MSk7ySmhTs4XY5mK6gC9nkMn0sZMym0NH6bgwq2FPhMY5WtgkoPcil8NAy1Z7-L5evCMgMy1xH__TnNCMoJsiNlKpyqsmWYbaHfiwfzNwVGT47iGbCdeY1Ie8RNzbizwVndS-vfrG_adXea9nRWSrukM5VAsAeU99U] https://api.vehicle-status.wirelesscar.cloud/vw-badg-eu-iot/vehicles/5B09254D1EAC980DE934E5013D75FCA2/status
+wmic path CIM_LogicalDevice where "Description like 'USB%'" get /value
+exit
+:q
+aws dynamodb query \<\n>    --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q \<\n>    --key-condition-expression "PK = :PK AND SK = :SK" \<\n>    --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}'
+aws dynamodb query --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q<\n>
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}'
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot
+sso login vwmonitoreu-iot
+aws sso login vwmonitoreu-iot
+aws sso login --profile vwmonitoreu-iot
+aws sso login vwmonitoreu-iot
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot     --projection-expression "token"
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot     --projection-expression "token"     --projection-expression "#token" 
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}'
+aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S'
+pbcopy < aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S'
+export rvsTOken =  aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S'
+export 
+exit
+$env.rvsTokenEuIot =  aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S'
+$env.rvsTokenEuIot =  $(aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S')
+$env.rvsTokenEuIot =  (aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S')
+nvim
+$env.rvsTokenEuIot =  (aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S')
+printnev
+$env.rvsTokenEuIot =  (aws dynamodb query     --table-name wcar-eu-west-1-vwmonitoreu-iot-rs-autobot-common-M2MTokenCacheV2-1MFK41ST9YA3J-CacheStorageV2-MF4ZQIZQ5D4Q     --key-condition-expression "PK = :PK AND SK = :SK"     --expression-attribute-values '{":PK": {"S": "af7c24bb-5ec9-48e2-901e-406650945666@eu.dp"},":SK": {"S": "SAS#rvs:notifications,rvsGetStatusReport,rvsStatusNotification,vhr:notifications,vhrGetVehicleReport,vhrStatusNotification"}}' --profile vwmonitoreu-iot      --projection-expression "#token"     --expression-attribute-names '{"#token": "token"}' | jq -r '.Items[0].token.S')
+$env.rvsTokenEuIot
+nvim
+exit
+getRvsToken
+exit
+getTokens
+getToken
+exit
+getToken
+getTokens
+nvim ~/.zshenv 
+exit
+ls
+cd ..
+cd
+cd /Users/ab000717/.m2/repository/com/wirelesscar/vw/rvs/uplink-message-handler/
+ls
+cd 0-SNAPSHOT/
+ls
+:q
+cd nvim
+nvim
