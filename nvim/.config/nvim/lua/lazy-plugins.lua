@@ -11,6 +11,8 @@
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
 
+  require 'custom/plugins/christmas',
+
   require 'custom/plugins/obsidian',
 
   require 'custom/plugins/markview',

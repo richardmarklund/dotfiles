@@ -169,7 +169,7 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -235,6 +235,18 @@ return {
                     settings = {
                       url = '/Users/ab000717/git/polo/polo-dot-files/formatter/eclipse-formatter.xml',
                     },
+                  },
+                  configuration = {
+                    maven = {
+                      globalSettings = '/Users/ab000717/.m2/settings.xml',
+                      userSettings = '/Users/ab000717/.m2/settings.xml',
+                    },
+                  },
+                  eclipse = {
+                    downloadsources = true,
+                  },
+                  maven = {
+                    downloadsources = true,
                   },
                   -- Your custom nvim-java configuration goes here
                 },

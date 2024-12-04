@@ -27,7 +27,11 @@ return {
         path = '/Users/ab000717/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian/wireless car/',
       },
     },
-
+    templates = {
+      folder = '/Users/ab000717/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian/wireless car/5 - Templates/',
+      date_format = '%Y-%m-%d',
+      time_format = '%H:%M',
+    },
     -- see below for full list of options 👇
   },
 }

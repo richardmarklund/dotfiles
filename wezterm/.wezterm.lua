@@ -70,7 +70,11 @@ config.keys = {
 		action = wezterm.action.TogglePaneZoomState,
 	},
 }
-
+config.inactive_pane_hsb = {
+	saturation = 0.8,
+	brightness = 0.5,
+}
+config.max_fps = 120
 -- must be at the end
 smart_splits.apply_to_config(config)
 return config
