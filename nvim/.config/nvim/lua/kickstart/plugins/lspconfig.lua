@@ -223,6 +223,9 @@ return {
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+          pyright = function()
+            require('lspconfig').pyright.setup {}
+          end,
           jdtls = function()
             require('java').setup {
               -- Your custom jdtls settings goes here

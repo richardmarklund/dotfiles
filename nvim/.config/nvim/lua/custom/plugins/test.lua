@@ -35,12 +35,7 @@ return {
         { desc = 'Run Class', noremap = true, silent = true }
       )
       vim.keymap.set('n', '<leader>to', "<Esc><Cmd> lua require('neotest').output.open()<CR>", { desc = 'Show output', noremap = true, silent = true })
-      vim.keymap.set(
-        'n',
-        '<leader>tO',
-        "<Esc><Cmd> lua require('neotest').output.open({ enter = true })<CR>",
-        { desc = 'Open output', noremap = true, silent = true }
-      )
+      vim.keymap.set('n', '<leader>tO', "<Esc><Cmd> lua require('neotest').output_panel.open()<CR>", { desc = 'Open output', noremap = true, silent = true })
       vim.keymap.set('n', '<leader>ts', "<Esc><Cmd> lua require('neotest').summary.toggle()<CR>", { desc = 'Toggle summary', noremap = true, silent = true })
 
       require('neotest').setup {

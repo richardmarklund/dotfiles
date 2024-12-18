@@ -10,10 +10,17 @@
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  require 'custom/plugins/lazygit',
+
+  require 'custom/plugins/printer',
+
+  require 'custom/plugins/inline-diagnostics',
+
+  require 'custom/plugins/profiler',
 
   require 'custom/plugins/christmas',
 
-  require 'custom/plugins/obsidian',
+  require 'custom/plugins/oil',
 
   require 'custom/plugins/markview',
 
@@ -39,7 +46,7 @@ require('lazy').setup({
 
   require 'kickstart/plugins/gitsigns',
 
-  require 'kickstart/plugins/neo-tree',
+  -- require 'kickstart/plugins/neo-tree',
 
   require 'kickstart/plugins/which-key',
 
