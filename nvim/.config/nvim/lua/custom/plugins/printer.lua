@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<leader>bp', '<Plug>(printer_print)iw')
+vim.keymap.set('n', '<leader>cp', '<Plug>(printer_print)iw', { desc = '[c]ode add [p]rint statement' })
 return {
   'rareitems/printer.nvim',
   config = function()

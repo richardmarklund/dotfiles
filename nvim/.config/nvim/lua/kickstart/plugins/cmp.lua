@@ -36,7 +36,6 @@ return {
       'hrsh7th/cmp-path',
     },
     config = function()
-      require('luasnip.loaders.from_vscode').lazy_load()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
@@ -55,6 +54,7 @@ return {
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
+
           -- Select the [n]ext item
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
@@ -99,6 +99,7 @@ return {
             end
           end, { 'i', 's' }),
 
+
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
@@ -108,10 +109,56 @@ return {
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', priority = 1 },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
+        },
+        sorting = {
+          priority_weight = 1,
+          comparators = {
+            function(entry1, entry2)
+              local types = require 'cmp.types'
+              local kind1 = entry1:get_kind()
+              local kind2 = entry2:get_kind()
+              kind1 = kind1 == types.lsp.CompletionItemKind.Text and 100 or kind1
+              kind2 = kind2 == types.lsp.CompletionItemKind.Text and 100 or kind2
+              if kind1 ~= kind2 then
+                if kind1 == types.lsp.CompletionItemKind.Snippet then
+                  return false
+                end
+                if kind2 == types.lsp.CompletionItemKind.Snippet then
+                  return true
+                end
+                local diff = kind1 - kind2
+                if diff < 0 then
+                  return true
+                elseif diff > 0 then
+                  return false
+                end
+              end
+              return nil
+            end,
+            function(entry1, entry2)
+              local _, entry1_under = entry1.completion_item.label:find '^_+'
+              local _, entry2_under = entry2.completion_item.label:find '^_+'
+              entry1_under = entry1_under or 0
+              entry2_under = entry2_under or 0
+              if entry1_under > entry2_under then
+                return false
+              elseif entry1_under < entry2_under then
+                return true
+              end
+            end,
+            -- cmp.config.compare.kind,
+            cmp.config.compare.score,
+            cmp.config.compare.scopes,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.exact,
+            cmp.config.compare.offset,
+            cmp.config.compare.locality,
+          },
         },
       }
     end,

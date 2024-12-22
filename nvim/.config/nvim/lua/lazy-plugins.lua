@@ -1,5 +1,6 @@
 -- [[ Configure and install plugins ]]
 --
+--
 --  To check the current status of your plugins, run
 --    :Lazy
 --
@@ -10,25 +11,22 @@
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  require 'custom/plugins/lazygit',
 
   require 'custom/plugins/printer',
+
+  require 'custom/plugins/leap',
+
+  require 'custom/plugins/oil',
 
   require 'custom/plugins/inline-diagnostics',
 
   require 'custom/plugins/profiler',
-
-  require 'custom/plugins/christmas',
-
-  require 'custom/plugins/oil',
 
   require 'custom/plugins/markview',
 
   require 'custom/plugins/maven',
 
   require 'custom/plugins/curl',
-
-  require 'custom/plugins/friendly-snippets',
 
   require 'custom/plugins/arrow',
 
@@ -46,7 +44,7 @@ require('lazy').setup({
 
   require 'kickstart/plugins/gitsigns',
 
-  -- require 'kickstart/plugins/neo-tree',
+  require 'custom/plugins/lazygit',
 
   require 'kickstart/plugins/which-key',
 
