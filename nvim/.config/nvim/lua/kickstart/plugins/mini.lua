@@ -15,7 +15,20 @@ return {
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       --     require('mini.surround').setup()
-      require('mini.animate').setup()
+      require('mini.animate').setup {
+        scroll = {
+          enable = false,
+        },
+        resize = {
+          enable = false,
+        },
+        open = {
+          enable = false,
+        },
+        close = {
+          enable = false,
+        },
+      }
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

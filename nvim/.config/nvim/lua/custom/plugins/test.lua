@@ -1,5 +1,6 @@
 return {
   {
+    event = { 'VeryLazy' },
     'rcasia/neotest-java',
     dependencies = {
       'mfussenegger/nvim-jdtls',
@@ -8,8 +9,10 @@ return {
       'theHamsta/nvim-dap-virtual-text', -- recommended
     },
   },
+  event = { 'VeryLazy' },
   {
     'nvim-neotest/neotest',
+    event = { 'VeryLazy' },
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
@@ -40,9 +43,13 @@ return {
 
       require('neotest').setup {
         log_level = vim.log.levels.DEBUG,
+        lazy = true,
+        event = { 'VeryLazy' },
         adapters = {
           -- require('neotest-vim-test'),
           require 'neotest-java' {
+            lazy = true,
+            event = { 'VeryLazy' },
             ignore_wrapper = false,
           },
         },

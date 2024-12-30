@@ -11,10 +11,15 @@
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  defaults = {
+    lazy = true, -- should plugins be lazy-loaded?
+  },
 
   require 'custom/plugins/printer',
 
-  require 'custom/plugins/leap',
+  require 'custom/plugins/treewalker',
+
+  require 'custom.plugins.flash',
 
   require 'custom/plugins/oil',
 
@@ -74,7 +79,6 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'kickstart.plugins.debug',
   require 'kickstart.plugins.autopairs',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

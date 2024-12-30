@@ -69,6 +69,13 @@ config.keys = {
 		mods = "CTRL",
 		action = wezterm.action.TogglePaneZoomState,
 	},
+	-- Turn off the default CMD-m Hide action, allowing CMD-m to
+	-- be potentially recognized and handled by the tab
+	{
+		key = "k",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
 }
 config.inactive_pane_hsb = {
 	saturation = 0.8,
