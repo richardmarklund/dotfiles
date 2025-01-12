@@ -11,14 +11,10 @@ if vim.env.PROF then
     },
   }
 end
-vim.diagnostic.config { virtual_text = false }
-
+-- to not show all diagnostics at the same time
 -- Autosave
-vim.api.nvim_create_autocmd({ 'FocusLost', 'ModeChanged', 'TextChanged', 'BufEnter' }, { desc = 'autosave', pattern = '*', command = 'silent! update' })
-
 --[[
-
-=====================================================================
+====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 ========                                    .-----.          ========
@@ -122,7 +118,6 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 vim.opt.conceallevel = 2

@@ -15,7 +15,13 @@ require('lazy').setup({
     lazy = true, -- should plugins be lazy-loaded?
   },
 
+  require 'custom/plugins/java',
   require 'custom/plugins/printer',
+  require 'custom/plugins/tree',
+
+  require 'custom/plugins/markdown-preview',
+
+  require 'custom/plugins/telekasten',
 
   require 'custom/plugins/treewalker',
 
@@ -27,17 +33,11 @@ require('lazy').setup({
 
   require 'custom/plugins/profiler',
 
-  require 'custom/plugins/markview',
-
   require 'custom/plugins/maven',
-
-  require 'custom/plugins/curl',
 
   require 'custom/plugins/arrow',
 
   require 'custom/plugins/goto-preview',
-
-  require 'custom/plugins/lsp-signature',
 
   require 'custom/plugins/alpha-startscreen',
 

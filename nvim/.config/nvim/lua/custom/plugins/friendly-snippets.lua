@@ -1,1 +1,2 @@
 return { 'rafamadriz/friendly-snippets' }
+
