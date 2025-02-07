@@ -15,6 +15,9 @@ require('lazy').setup({
     lazy = true, -- should plugins be lazy-loaded?
   },
 
+  require 'custom/plugins/vim-test',
+  require 'custom/plugins/dressing',
+  require 'custom/plugins/window_picker',
   require 'custom/plugins/java',
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
@@ -37,13 +40,11 @@ require('lazy').setup({
 
   require 'custom/plugins/arrow',
 
-  require 'custom/plugins/goto-preview',
+  -- require 'custom/plugins/goto-preview',
 
   require 'custom/plugins/alpha-startscreen',
 
   require 'custom/plugins/catppuccin',
-
-  require 'custom/plugins/test',
 
   require 'custom/plugins/tmux-nvim-navigator',
 

@@ -1,0 +1,12 @@
+ set modeindicatormodes {"normal":"false", "visual":"false", "insert":"false"}
+ bindurl www.google.com f hint -Jc #search a
+ bindurl www.google.com F hint -Jbc #search a
+ bindurl ^https://duckduckgo.com f hint -Jc [data-testid="result-title-a"], [class="tile--img__media"]
+ bindurl ^https://duckduckgo.com F hint -Jbc [data-testid="result-title-a"], [class="tile--img__media"]
+ bindurl www.reddit.com f hint -Jc [slot="title"],  [id="post-image"], [data-testid="close-button"], [class="lty-playbtn"], [class="ytp-title-text"], [icon-name="right-fill"], [icon-name="left-fill"]
+ bindurl app.datadoghq.eu f hint -Jc  [href*="polo"], [href="/dashboard/lists"], [href="/personal-settings"], [href="/personal-settings/organizations"], [href*="/switch_to_user/"]
+ bindurl https://www.youtube.com/ f hint -jc [id="video-title"]
+
+ set hintdelay 100
+ set hintfiltermode vimperator-reflow
+ set hintnames numeric

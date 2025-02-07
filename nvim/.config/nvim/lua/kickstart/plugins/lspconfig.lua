@@ -5,6 +5,8 @@ return {
     -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
     ft = 'lua',
+    event = 'VeryLazy',
+    lazy = 'true',
     opts = {
       library = {
         -- Load luvit types when the `vim.uv` word is found
@@ -21,7 +23,7 @@ return {
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'nvim-java/nvim-java',
+      'danarth/sonarlint.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -119,7 +121,7 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'jdtls' },
+        ensure_installed = { 'lua_ls' },
         automatic_installation = true,
 
         handlers = {
@@ -130,77 +132,6 @@ return {
           end,
           pyright = function()
             require('lspconfig').pyright.setup {}
-          end,
-          jdtls = function()
-            require('java').setup {
-              settings = {
-                java = {
-                  completion = {
-                    favoriteStaticMembers = {
-                      'org.mockito.Mockito.when',
-                      'org.mockito.Mockito.any',
-                      'org.mockito.Mockito.then',
-                      'org.mockito.Mockito.verify',
-                      'org.junit.jupiter.api.Assertions.*',
-                    },
-                  },
-                  format = {
-                    settings = {
-                      url = '/Users/ab000717/git/polo/polo-dot-files/formatter/eclipse-formatter.xml',
-                    },
-                  },
-                  configuration = {
-                    maven = {
-                      globalSettings = '/Users/ab000717/.m2/settings.xml',
-                      userSettings = '/Users/ab000717/.m2/settings.xml',
-                    },
-                  },
-                  eclipse = {
-                    downloadsources = true,
-                  },
-                  maven = {
-                    downloadsources = true,
-                  },
-                  -- Your custom nvim-java configuration goes here
-                },
-              },
-              workspace_cache = true,
-            }
-
-            require('lspconfig').jdtls.setup {
-              settings = {
-                java = {
-                  completion = {
-                    favoriteStaticMembers = {
-                      'org.mockito.Mockito.when',
-                      'org.mockito.Mockito.any',
-                      'org.mockito.Mockito.then',
-                      'org.mockito.Mockito.verify',
-                      'org.junit.jupiter.api.Assertions.*',
-                    },
-                  },
-                  format = {
-                    settings = {
-                      url = '/Users/ab000717/git/polo/polo-dot-files/formatter/eclipse-formatter.xml',
-                    },
-                  },
-                  configuration = {
-                    maven = {
-                      globalSettings = '/Users/ab000717/.m2/settings.xml',
-                      userSettings = '/Users/ab000717/.m2/settings.xml',
-                    },
-                  },
-                  eclipse = {
-                    downloadsources = true,
-                  },
-                  maven = {
-                    downloadsources = true,
-                  },
-                  -- Your custom nvim-java configuration goes here
-                },
-              },
-              workspace_cache = true,
-            }
           end,
         },
       }

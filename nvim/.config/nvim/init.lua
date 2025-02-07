@@ -11,6 +11,8 @@ if vim.env.PROF then
     },
   }
 end
+
+-- Your other Neovim configuration here...
 -- to not show all diagnostics at the same time
 -- Autosave
 --[[
@@ -118,6 +120,42 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- Function to run the external command on selected text or the whole file
+function Process_json_with_polo()
+  -- Get the selected text in the current buffer
+  local start_line, start_col = unpack(vim.api.nvim_buf_get_mark(0, '<'))
+  local end_line, end_col = unpack(vim.api.nvim_buf_get_mark(0, '>'))
+
+  -- If nothing is visually marked, process the whole file
+  if start_line == end_line and start_col == end_col then
+    start_line = 1
+    end_line = vim.api.nvim_buf_line_count(0) -- Total number of lines in the buffer
+    start_col = 0
+    end_col = #vim.api.nvim_buf_get_lines(0, end_line - 1, end_line, false)[1] -- Last line length
+  end
+
+  -- Get the range of the selected text or the whole file
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  local selected_text = table.concat(lines, '\n')
+
+  -- If the selected text ends with the max integer value (2147483647), adjust the end column
+  if end_col == 2147483647 then
+    end_col = #lines[#lines]
+  end
+  -- Call the external command with the selected text
+  local cmd = string.format("echo '%s' | jq '.'", selected_text)
+  local handle = io.popen(cmd)
+  local output = handle:read '*a'
+  handle:close()
+
+  -- Replace the selected text with the output from the command
+  vim.api.nvim_buf_set_text(0, start_line - 1, start_col, end_line - 1, end_col, vim.fn.split(output, '\n'))
+end
+
+-- Your other Neovim configuration here...
+vim.api.nvim_set_keymap('v', '<leader>fj', [[:lua Process_json_with_polo()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fj', [[:lua Process_json_with_polo()<CR>]], { noremap = true, silent = true }) -- Adding a normal mode mapping to format the whole file
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 vim.opt.conceallevel = 2

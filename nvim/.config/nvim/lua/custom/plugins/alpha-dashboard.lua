@@ -185,7 +185,7 @@ local section = {
   top_buttons = {
     type = 'group',
     val = {
-      button('e', 'Edit reminders', '<cmd>e /Volumes/notes.marklund.io/1 - Fleeting Notes/Reminder.md <CR>'),
+      button('e', 'Edit reminders', '<cmd>e /Users/ab000717/Nextcloud/Notes/1 - Fleeting Notes/Reminder.md <CR>'),
     },
   },
   -- note about MRU: currently this is a function,
@@ -240,7 +240,7 @@ local section = {
       {
         type = 'text',
         { type = 'padding', val = 1 },
-        val = read_file_lines '/Volumes/notes.marklund.io/1 - Fleeting Notes/Reminder.md',
+        val = read_file_lines '/Users/ab000717/Nextcloud/Notes/1 - Fleeting Notes/Reminder.md',
         opts = { hl = 'MoreMsg', shrink_margin = false },
       },
     },

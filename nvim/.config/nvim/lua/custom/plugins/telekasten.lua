@@ -10,7 +10,7 @@ return {
   event = 'VeryLazy',
   config = function()
     require('telekasten').setup {
-      home = vim.fn.expand '/Volumes/notes.marklund.io/', -- Put the name of your notes directory here
+      home = vim.fn.expand '/Users/ab000717/Nextcloud/Notes/', -- Put the name of your notes directory here
     }
   end,
 }
