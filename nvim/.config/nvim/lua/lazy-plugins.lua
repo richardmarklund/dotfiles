@@ -17,14 +17,11 @@ require('lazy').setup({
 
   require 'custom/plugins/vim-test',
   require 'custom/plugins/dressing',
-  require 'custom/plugins/window_picker',
   require 'custom/plugins/java',
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
 
   require 'custom/plugins/markdown-preview',
-
-  require 'custom/plugins/telekasten',
 
   require 'custom/plugins/treewalker',
 

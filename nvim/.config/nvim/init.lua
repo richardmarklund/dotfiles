@@ -11,7 +11,6 @@ if vim.env.PROF then
     },
   }
 end
-
 -- Your other Neovim configuration here...
 -- to not show all diagnostics at the same time
 -- Autosave
@@ -152,6 +151,7 @@ function Process_json_with_polo()
   -- Replace the selected text with the output from the command
   vim.api.nvim_buf_set_text(0, start_line - 1, start_col, end_line - 1, end_col, vim.fn.split(output, '\n'))
 end
+vim.api.nvim_set_keymap('i', '<C-S-A-S>', '', { noremap = true, silent = true })
 
 -- Your other Neovim configuration here...
 vim.api.nvim_set_keymap('v', '<leader>fj', [[:lua Process_json_with_polo()<CR>]], { noremap = true, silent = true })
