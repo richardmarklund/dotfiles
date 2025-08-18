@@ -11,6 +11,7 @@ if vim.env.PROF then
     },
   }
 end
+
 -- Your other Neovim configuration here...
 -- to not show all diagnostics at the same time
 -- Autosave
@@ -120,45 +121,134 @@ require 'lazy-bootstrap'
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
 
--- Function to run the external command on selected text or the whole file
-function Process_json_with_polo()
-  -- Get the selected text in the current buffer
-  local start_line, start_col = unpack(vim.api.nvim_buf_get_mark(0, '<'))
-  local end_line, end_col = unpack(vim.api.nvim_buf_get_mark(0, '>'))
+-- Utility to get visual selection
+local function get_visual_selection()
+  vim.cmd 'normal! "vy' -- yank visual selection into "v register
+  return vim.fn.getreg 'v'
+end
 
-  -- If nothing is visually marked, process the whole file
-  if start_line == end_line and start_col == end_col then
-    start_line = 1
-    end_line = vim.api.nvim_buf_line_count(0) -- Total number of lines in the buffer
-    start_col = 0
-    end_col = #vim.api.nvim_buf_get_lines(0, end_line - 1, end_line, false)[1] -- Last line length
+-- Replace visual selection with given text
+local function replace_visual_selection(new_text)
+  -- Get start and end of visual selection
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+
+  local lines = vim.split(new_text, '\n', true)
+  vim.api.nvim_buf_set_lines(0, start_pos[2] - 1, end_pos[2], false, lines)
+end
+
+-- Main command
+local function convert_json_to_struct()
+  local selection = get_visual_selection()
+
+  if selection == '' then
+    vim.notify('No text selected', vim.log.levels.ERROR)
+    return
   end
 
-  -- Get the range of the selected text or the whole file
-  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
-  local selected_text = table.concat(lines, '\n')
-
-  -- If the selected text ends with the max integer value (2147483647), adjust the end column
-  if end_col == 2147483647 then
-    end_col = #lines[#lines]
-  end
-  -- Call the external command with the selected text
-  local cmd = string.format("echo '%s' | jq '.'", selected_text)
+  local cmd = 'json2struct -s "' .. selection:gsub('"', '\\"') .. '"'
   local handle = io.popen(cmd)
-  local output = handle:read '*a'
+  local result = handle:read '*a'
   handle:close()
 
-  -- Replace the selected text with the output from the command
-  vim.api.nvim_buf_set_text(0, start_line - 1, start_col, end_line - 1, end_col, vim.fn.split(output, '\n'))
+  if not result or result == '' then
+    vim.notify('No output from json2struct', vim.log.levels.ERROR)
+    return
+  end
+
+  replace_visual_selection(result)
 end
+
+vim.keymap.set('v', '<leader>cs', convert_json_to_struct, { noremap = true, silent = true, desc = 'convert json to struct' })
+
 vim.api.nvim_set_keymap('i', '<C-S-A-S>', '', { noremap = true, silent = true })
 
--- Your other Neovim configuration here...
-vim.api.nvim_set_keymap('v', '<leader>fj', [[:lua Process_json_with_polo()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fj', [[:lua Process_json_with_polo()<CR>]], { noremap = true, silent = true }) -- Adding a normal mode mapping to format the whole file
--- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 vim.opt.conceallevel = 2
-vim.opt.relativenumber = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
+vim.opt.fixeol = false
+vim.opt.eol = false
+
+vim.fn.setenv('DOCKER_HOST', 'unix:///Users/ab000717/.colima/docker.sock')
+vim.fn.setenv('TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE', '/var/run/docker.sock')
+
+-- Function to toggle between a Go file and its test file
+function ToggleGoTestFile()
+  local file = vim.fn.expand '%:p' -- Get the current file's full path
+  local new_file
+
+  -- Check if the file ends with '_test.go' and toggle accordingly
+  if file:match '_test.go$' then
+    new_file = file:sub(1, -9) .. '.go' -- Strip '_test' and add '.go'
+  elseif file:match '.go$' then
+    new_file = file:sub(1, -4) .. '_test.go' -- Add '_test' before '.go'
+  else
+    print 'Not a Go file!'
+    return
+  end
+
+  -- Open the corresponding file
+  vim.cmd('edit ' .. new_file)
+end
+
+-- Set up the keybinding
+vim.api.nvim_set_keymap('n', '<Leader>gt', ':lua ToggleGoTestFile()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ca', function()
+  require('tiny-code-action').code_action()
+end, { noremap = true, silent = true, desc = 'Code Actiom' })
+
+vim.api.nvim_create_user_command('EmmaSuggest', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row = cursor[1]
+
+  -- Get all lines
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+  -- Find paragraph boundaries
+  local function is_blank(line)
+    return line:match '^%s*$'
+  end
+
+  local start_row, end_row = row, row
+  while start_row > 1 and not is_blank(lines[start_row - 1]) do
+    start_row = start_row - 1
+  end
+  while end_row < #lines and not is_blank(lines[end_row + 1]) do
+    end_row = end_row + 1
+  end
+
+  -- Extract paragraph or fallback to whole file
+  local paragraph = table.concat(vim.list_slice(lines, start_row, end_row), '\n')
+  if paragraph:match '^%s*$' then
+    paragraph = table.concat(lines, '\n')
+  end
+
+  -- Run emma suggest
+  local query = vim.fn.shellescape(paragraph)
+  local output = vim.fn.systemlist('emma suggest --query ' .. query)
+  vim.print(output)
+
+  if vim.v.shell_error ~= 0 then
+    vim.notify('Emma failed: ' .. table.concat(output, '\n'), vim.log.levels.ERROR)
+    return
+  end
+
+  -- Display in floating window
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+
+  local width = math.floor(vim.o.columns * 0.7)
+  local height = math.max(1, math.min(#output, math.floor(vim.o.lines * 0.5)))
+
+  vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = width,
+    height = height,
+    row = math.floor((vim.o.lines - height) / 2),
+    col = math.floor((vim.o.columns - width) / 2),
+    style = 'minimal',
+    border = 'rounded',
+  })
+end, {})

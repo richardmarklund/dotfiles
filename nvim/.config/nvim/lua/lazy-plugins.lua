@@ -14,10 +14,22 @@ require('lazy').setup({
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
   },
-
+  require 'custom/plugins/inline-diagnostics',
+  require 'custom/plugins/newfile',
+  require 'custom/plugins/codeaction',
+  require 'custom/plugins/fidget',
+  require 'custom/plugins/vectorcode',
+  require 'custom/plugins/coverage',
+  require 'custom/plugins/copilot',
   require 'custom/plugins/vim-test',
+  require 'kickstart/plugins/todo-comments',
+  require 'custom/plugins/glance',
+  require 'custom/plugins/multicursor',
+  require 'custom/plugins/companion',
+  require 'custom/plugins/nio',
   require 'custom/plugins/dressing',
-  require 'custom/plugins/java',
+  --  require 'custom/plugins/java',
+  -- require 'custom/plugins/go', -- Temporarily disabled to test file watching issue
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
 
@@ -29,15 +41,11 @@ require('lazy').setup({
 
   require 'custom/plugins/oil',
 
-  require 'custom/plugins/inline-diagnostics',
-
   require 'custom/plugins/profiler',
 
-  require 'custom/plugins/maven',
+  --require 'custom/plugins/maven',
 
   require 'custom/plugins/arrow',
-
-  -- require 'custom/plugins/goto-preview',
 
   require 'custom/plugins/alpha-startscreen',
 
@@ -77,7 +85,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.autopairs',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

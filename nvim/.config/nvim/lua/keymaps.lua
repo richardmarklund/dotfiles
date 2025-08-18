@@ -32,20 +32,14 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Quick terminal navigation
-vim.keymap.set('n', '<leader>xg', '<cmd>cd ~/git<CR>', { desc = 'Change dir to git' })
-vim.keymap.set('n', '<leader>xp', '<cmd>cd ~/git/polo/<CR>', { desc = 'Change dir to polorepos' })
-vim.keymap.set('n', '<leader>xr', '<cmd>cd ~/git/remote-status/<CR>', { desc = 'Change dir to remote status' })
-vim.keymap.set('n', '<leader>xu', '<cmd>cd ~/git/rlu/<CR>', { desc = 'Change dir to rlu' })
-vim.keymap.set('n', '<leader>xh', '<cmd>cd ~/git/rhf/<CR>', { desc = 'Change dir to rhf' })
-vim.keymap.set('n', '<leader>xs', '<cmd>cd ~/git/rs/<CR>', { desc = 'Change dir to rs' })
-vim.keymap.set('n', '<leader>xn', '<cmd>cd ~/dotfiles/nvim/.config/nvim/<CR>', { desc = 'Change dir to nvim' })
+vim.keymap.set('n', '<leader>x', '<cmd>cd ~/dotfiles/nvim/.config/nvim/<CR>', { desc = 'Change dir to nvim' })
 
 -- Mapping for quit and save
 vim.keymap.set('n', 'wq', '<cmd>q<CR>', { desc = 'Quick for :q' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
-vim.keymap.set('n', '<leader>a', '<cmd>Alpha<CR>', { desc = 'Go to dashboard' })
+vim.keymap.set('n', '<leader>aa', '<cmd>Alpha<CR>', { desc = 'Go to dashboard' })
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
