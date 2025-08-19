@@ -194,9 +194,11 @@ end
 
 -- Set up the keybinding
 vim.api.nvim_set_keymap('n', '<Leader>gt', ':lua ToggleGoTestFile()<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>ca', function()
-  require('tiny-code-action').code_action()
-end, { noremap = true, silent = true, desc = 'Code Actiom' })
+
+-- Fallback: Built-in LSP code action in visual mode
+vim.keymap.set('v', '<leader>cA', function()
+  vim.lsp.buf.code_action()
+end, { noremap = true, silent = true, desc = 'Code Action (builtin)' })
 
 vim.api.nvim_create_user_command('EmmaSuggest', function()
   local bufnr = vim.api.nvim_get_current_buf()
@@ -252,3 +254,12 @@ vim.api.nvim_create_user_command('EmmaSuggest', function()
     border = 'rounded',
   })
 end, {})
+
+-- Wrap long lines in Trouble windows for better readability
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'trouble',
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+  end,
+})

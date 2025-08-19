@@ -22,5 +22,19 @@ return {
     vim.keymap.set('n', 'gpc', function()
       require('refactoring').debug.cleanup {}
     end)
+
+    -- Refactors (visual selection)
+    vim.keymap.set('x', '<leader>re', function()
+      require('refactoring').refactor('Extract Function')
+    end, { desc = 'Refactor: Extract Function' })
+
+    vim.keymap.set('x', '<leader>rv', function()
+      require('refactoring').refactor('Extract Variable')
+    end, { desc = 'Refactor: Extract Variable' })
+
+    -- Built-in LSP code action (visual-range) as a fallback
+    vim.keymap.set('x', '<leader>cA', function()
+      vim.lsp.buf.code_action()
+    end, { desc = 'Code Action (builtin, visual)' })
   end,
 }
