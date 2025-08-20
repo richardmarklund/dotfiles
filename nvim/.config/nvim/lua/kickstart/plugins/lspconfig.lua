@@ -82,22 +82,49 @@ return {
           -- to define small helper and utility functions so you don't have to repeat yourself.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc, noremap = true, silent = true })
           end
+
 
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
+          -- Ensure gr directly opens telescope references without submenu
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          -- Custom implementation function that auto-jumps if only one result
+          map('gi', function()
+            vim.lsp.buf.implementation({
+              on_list = function(options)
+                -- Filter out mock files
+                local filtered_items = vim.tbl_filter(function(item)
+                  return not string.find(string.lower(item.filename), 'mock')
+                end, options.items)
+                
+                if #filtered_items == 0 then
+                  vim.notify('No implementations found', vim.log.levels.INFO)
+                  return
+                elseif #filtered_items == 1 then
+                  -- Jump directly to single result
+                  local item = filtered_items[1]
+                  vim.cmd('edit ' .. item.filename)
+                  vim.api.nvim_win_set_cursor(0, {item.lnum, item.col})
+                else
+                  -- Use telescope for multiple results
+                  -- Update options with filtered items
+                  options.items = filtered_items
+                  require('telescope.builtin').lsp_implementations()
+                end
+              end
+            })
+          end, '[G]oto [I]mplementation')
 
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('<leader>wd', require('telescope.builtin').lsp_type_definitions, '[W]orkspace type [D]efinition')
 
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>dS', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
           map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>cn', vim.lsp.buf.rename, '[C]ode re[N]ame')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -128,9 +155,9 @@ return {
           end
 
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map('<leader>th', function()
+            map('<leader>wh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, '[W]orkspace toggle [H]ints')
           end
         end,
       })

@@ -9,7 +9,6 @@ local mux = wezterm.mux
 wezterm.on("gui-startup", function(cmd)
 	local _, _, window = mux.spawn_window(cmd or {})
 	window:gui_window():maximize()
-	window:gui_window():toggle_fullscreen()
 end)
 
 config.color_scheme = "Catppuccin Mocha"
@@ -35,11 +34,6 @@ config.keys = {
 		key = "o",
 		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Right", 5 }),
-	},
-	{
-		key = "v",
-		mods = "CTRL",
-		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "s",

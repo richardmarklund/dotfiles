@@ -12,9 +12,9 @@ vim.keymap.set(
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to [d]iagnostic [n]ext' })
-vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_next, { desc = 'Go to [d]iagnostic [p]revious' })
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]iagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = '[D]iagnostic [N]ext' })
+vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = '[D]iagnostic [P]revious' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -31,15 +31,15 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Quick terminal navigation
-vim.keymap.set('n', '<leader>x', '<cmd>cd ~/dotfiles/nvim/.config/nvim/<CR>', { desc = 'Change dir to nvim' })
+-- Workspace navigation
+vim.keymap.set('n', '<leader>wx', '<cmd>cd ~/dotfiles/nvim/.config/nvim/<CR>', { desc = '[W]orkspace cd to nvim' })
 
 -- Mapping for quit and save
 vim.keymap.set('n', 'wq', '<cmd>q<CR>', { desc = 'Quick for :q' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
-vim.keymap.set('n', '<leader>aa', '<cmd>Alpha<CR>', { desc = 'Go to dashboard' })
+vim.keymap.set('n', '<leader>ua', '<cmd>Alpha<CR>', { desc = '[U]I [A]lpha dashboard' })
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -50,7 +50,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
-vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'Open [o]il' })
 
 -- vim: ts=2 sts=2 sw=2 et

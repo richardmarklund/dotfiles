@@ -14,39 +14,22 @@ require('lazy').setup({
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
   },
-  require 'custom/plugins/tiny-inline-diagnostics',
   require 'custom/plugins/inline-diagnostics',
-  require 'custom/plugins/newfile',
   require 'custom/plugins/codeaction',
   require 'custom/plugins/fidget',
-  require 'custom/plugins/vectorcode',
   require 'custom/plugins/coverage',
   require 'custom/plugins/copilot',
   require 'custom/plugins/vim-test',
-  require 'kickstart/plugins/todo-comments',
-  require 'custom/plugins/glance',
   require 'custom/plugins/multicursor',
   require 'custom/plugins/companion',
   require 'custom/plugins/nio',
   require 'custom/plugins/dressing',
-  --  require 'custom/plugins/java',
-  -- require 'custom/plugins/go', -- Temporarily disabled to test file watching issue
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
 
   require 'custom/plugins/markdown-preview',
 
-  require 'custom/plugins/treewalker',
-
   require 'custom.plugins.flash',
-
-  require 'custom/plugins/oil',
-
-  require 'custom/plugins/profiler',
-
-  --require 'custom/plugins/maven',
-
-  require 'custom/plugins/arrow',
 
   require 'custom/plugins/alpha-startscreen',
 

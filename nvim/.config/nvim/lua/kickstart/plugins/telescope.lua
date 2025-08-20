@@ -61,7 +61,28 @@ return {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {
+          lsp_implementations = {
+            show_line = false,
+            fname_width = 100,
+            entry_maker = function(entry)
+              -- Filter out files with 'mock' in the path
+              if string.find(string.lower(entry.filename), 'mock') then
+                return nil
+              end
+              
+              local filename = require('telescope.utils').transform_path({}, entry.filename)
+              return {
+                value = entry,
+                display = filename,
+                ordinal = filename,
+                filename = entry.filename,
+                lnum = entry.lnum,
+                col = entry.col,
+              }
+            end,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -88,7 +109,7 @@ return {
       end, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>ub', builtin.buffers, { desc = '[U]I [B]uffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()

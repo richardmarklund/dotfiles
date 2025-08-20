@@ -41,16 +41,6 @@ return {
         },
       },
     }
-    require('codecompanion').setup {
-      extensions = {
-        vectorcode = {
-          opts = {
-            add_tool = true,
-          },
-        },
-      },
-    }
-
     -- Keymaps using command line interface
     vim.keymap.set('n', '<leader>aa', ':CodeCompanionActions<CR>', { noremap = true, silent = true, desc = 'Open CodeCompanion Actions' })
     vim.keymap.set('n', '<leader>ac', ':CodeCompanionChat<CR>', { noremap = true, silent = true, desc = 'Open CodeCompanion Chat' })

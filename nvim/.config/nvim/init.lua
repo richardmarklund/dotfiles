@@ -193,7 +193,13 @@ function ToggleGoTestFile()
 end
 
 -- Set up the keybinding
-vim.api.nvim_set_keymap('n', '<Leader>gt', ':lua ToggleGoTestFile()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>ug', ':lua ToggleGoTestFile()<CR>', { noremap = true, silent = true, desc = '[U]I [G]o test toggle' })
+
+-- Remove default LSP keymaps that create submenus
+pcall(vim.keymap.del, 'n', 'grr')  -- LSP rename
+pcall(vim.keymap.del, 'n', 'grn')  -- LSP rename (alternative)
+pcall(vim.keymap.del, 'n', 'gra')  -- LSP code action
+pcall(vim.keymap.del, 'n', 'gri')  -- LSP implementation
 
 -- Fallback: Built-in LSP code action in visual mode
 vim.keymap.set('v', '<leader>cA', function()
