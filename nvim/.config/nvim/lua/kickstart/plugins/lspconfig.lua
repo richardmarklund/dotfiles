@@ -118,11 +118,11 @@ return {
             })
           end, '[G]oto [I]mplementation')
 
-          map('<leader>wd', require('telescope.builtin').lsp_type_definitions, '[W]orkspace type [D]efinition')
+          map('<leader>cd', require('telescope.builtin').lsp_type_definitions, '[C]ode type [D]efinition')
 
           map('<leader>dS', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>cs', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[C]ode workspace [S]ymbols')
 
           map('<leader>cn', vim.lsp.buf.rename, '[C]ode re[N]ame')
 
@@ -155,9 +155,9 @@ return {
           end
 
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map('<leader>wh', function()
+            map('<leader>ch', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[W]orkspace toggle [H]ints')
+            end, '[C]ode toggle [H]ints')
           end
         end,
       })
