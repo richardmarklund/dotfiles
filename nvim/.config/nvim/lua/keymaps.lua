@@ -107,4 +107,37 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Enhanced buffer navigation
+vim.keymap.set('n', '<leader>bn', '<cmd>bnext<CR>', { desc = '[B]uffer [N]ext' })
+vim.keymap.set('n', '<leader>bp', '<cmd>bprev<CR>', { desc = '[B]uffer [P]revious' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bdelete<CR>', { desc = '[B]uffer [D]elete' })
+vim.keymap.set('n', '<leader>bl', '<cmd>buffers<CR>', { desc = '[B]uffer [L]ist' })
+
+-- Smart search enhancements (lazy loaded)
+vim.keymap.set('n', '<leader>sw', function()
+  local word = vim.fn.expand('<cword>')
+  vim.cmd('Telescope grep_string search=' .. word)
+end, { desc = '[S]earch [W]ord under cursor' })
+
+vim.keymap.set('n', '<leader>sW', function()
+  local word = vim.fn.expand('<cWORD>')
+  vim.cmd('Telescope grep_string search=' .. word)
+end, { desc = '[S]earch [W]ord under cursor (WORD)' })
+
+-- Git workflow enhancements
+vim.keymap.set('n', '<leader>gs', '<cmd>Git status<CR>', { desc = '[G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gc', '<cmd>Git commit<CR>', { desc = '[G]it [C]ommit' })
+vim.keymap.set('n', '<leader>gp', '<cmd>Git push<CR>', { desc = '[G]it [P]ush' })
+vim.keymap.set('n', '<leader>gl', '<cmd>Git log --oneline<CR>', { desc = '[G]it [L]og' })
+
+-- Code navigation enhancements (lazy loaded)
+vim.keymap.set('n', '<leader>cd', '<cmd>Telescope lsp_definitions<CR>', { desc = '[C]ode [D]efinition' })
+vim.keymap.set('n', '<leader>cr', '<cmd>Telescope lsp_references<CR>', { desc = '[C]ode [R]eferences' })
+vim.keymap.set('n', '<leader>ci', '<cmd>Telescope lsp_implementations<CR>', { desc = '[C]ode [I]mplementations' })
+
+-- Quick file operations
+vim.keymap.set('n', '<leader>fs', '<cmd>w<CR>', { desc = '[F]ile [S]ave' })
+vim.keymap.set('n', '<leader>fq', '<cmd>wq<CR>', { desc = '[F]ile [S]ave and [Q]uit' })
+vim.keymap.set('n', '<leader>fn', '<cmd>enew<CR>', { desc = '[F]ile [N]ew' })
+
 -- vim: ts=2 sts=2 sw=2 et

@@ -1,6 +1,14 @@
 return {
   'mg979/vim-visual-multi',
   branch = 'master',
+  keys = {
+    '<Leader>ma',
+    '<Leader>mA',
+    '<Leader>mr',
+    '<C-Down>',
+    '<C-Up>',
+    '<C-LeftMouse>',
+  },
   init = function()
     -- Configure vim-visual-multi settings
     vim.g.VM_theme = 'iceblue'

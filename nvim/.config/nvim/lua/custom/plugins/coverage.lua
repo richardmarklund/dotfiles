@@ -1,6 +1,8 @@
 return {
   'andythigpen/nvim-coverage',
   version = '*',
+  cmd = { 'Coverage', 'CoverageLoad', 'CoverageShow', 'CoverageSummary', 'CoverageToggle', 'CoverageClear' },
+  ft = { 'go', 'javascript', 'typescript', 'python' },
   config = function()
     local coverage = require 'coverage'
 

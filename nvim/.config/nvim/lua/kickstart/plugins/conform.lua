@@ -2,7 +2,7 @@ return {
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
+    cmd = { 'ConformInfo', 'Format', 'FormatWrite' },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)

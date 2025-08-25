@@ -12,6 +12,63 @@ if vim.env.PROF then
   }
 end
 
+-- Startup time measurement
+local function measure_startup()
+  local start_time = vim.loop.hrtime()
+  vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+      local end_time = vim.loop.hrtime()
+      local startup_time = (end_time - start_time) / 1e6 -- Convert to milliseconds
+      vim.notify(string.format('Startup time: %.2f ms', startup_time), vim.log.levels.INFO)
+    end
+  })
+end
+
+-- Initialize startup measurement
+measure_startup()
+
+-- Performance monitoring commands
+vim.api.nvim_create_user_command('ProfileStart', function()
+  vim.cmd('profile start profile.log')
+  vim.cmd('profile func *')
+  vim.cmd('profile file *')
+  vim.notify('Profiling started - use :ProfileStop to finish', vim.log.levels.INFO)
+end, { desc = 'Start profiling' })
+
+vim.api.nvim_create_user_command('ProfileStop', function()
+  vim.cmd('profile stop')
+  vim.notify('Profile saved to profile.log', vim.log.levels.INFO)
+end, { desc = 'Stop profiling' })
+
+-- Performance optimization commands
+vim.api.nvim_create_user_command('OptimizeConfig', function()
+  vim.notify('Running optimization checks...', vim.log.levels.INFO)
+
+  -- Check for unused plugins
+  local lazy = require('lazy')
+  local plugins = lazy.plugins()
+  local unused = {}
+
+  for _, plugin in ipairs(plugins) do
+    if not plugin.loaded and not plugin.cond then
+      table.insert(unused, plugin.name)
+    end
+  end
+
+  if #unused > 0 then
+    vim.notify('Consider lazy loading: ' .. table.concat(unused, ', '), vim.log.levels.WARN)
+  else
+    vim.notify('All plugins are optimized!', vim.log.levels.INFO)
+  end
+end, { desc = 'Check for optimization opportunities' })
+
+-- Memory usage command
+vim.api.nvim_create_user_command('MemoryUsage', function()
+  local stats = vim.loop.resident_set_memory()
+  local usage_mb = stats / 1024 / 1024
+  vim.notify(string.format('Memory usage: %.2f MB', usage_mb), vim.log.levels.INFO)
+end, { desc = 'Show memory usage' })
+
 -- Your other Neovim configuration here...
 -- to not show all diagnostics at the same time
 -- Autosave
