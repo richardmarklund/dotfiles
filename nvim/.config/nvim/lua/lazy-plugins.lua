@@ -14,7 +14,7 @@ require('lazy').setup({
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
   },
-  require 'custom/plugins/inline-diagnostics',
+  require 'custom/plugins/tiny-inline-diagnostic',
   require 'custom/plugins/codeaction',
   require 'custom/plugins/fidget',
   require 'custom/plugins/coverage',
@@ -26,6 +26,7 @@ require('lazy').setup({
   require 'custom/plugins/dressing',
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
+
 
   require 'custom/plugins/markdown-preview',
 

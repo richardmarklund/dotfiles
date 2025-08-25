@@ -11,10 +11,10 @@ vim.keymap.set(
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
+-- Diagnostic keymaps (suppress built-in floats since we use tiny-inline-diagnostic)
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]iagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = '[D]iagnostic [N]ext' })
-vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = '[D]iagnostic [P]revious' })
+vim.keymap.set('n', '<leader>dn', function() vim.diagnostic.goto_next({ float = false }) end, { desc = '[D]iagnostic [N]ext' })
+vim.keymap.set('n', '<leader>dp', function() vim.diagnostic.goto_prev({ float = false }) end, { desc = '[D]iagnostic [P]revious' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -84,6 +84,11 @@ vim.keymap.set('n', '<leader>wH', smart_move_left, { desc = '[W]indow move left 
 vim.keymap.set('n', '<leader>wL', '<C-w>L', { desc = '[W]indow move far right' })
 vim.keymap.set('n', '<leader>wJ', '<C-w>J', { desc = '[W]indow move bottom' })
 vim.keymap.set('n', '<leader>wK', '<C-w>K', { desc = '[W]indow move top' })
+
+-- Enhanced text manipulation
+vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste without yanking' })
+vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
+vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 
 -- Mapping for quit and save
 vim.keymap.set('n', 'wq', '<cmd>q<CR>', { desc = 'Quick for :q' })

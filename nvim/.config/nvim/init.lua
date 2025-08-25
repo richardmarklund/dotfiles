@@ -261,11 +261,3 @@ vim.api.nvim_create_user_command('EmmaSuggest', function()
   })
 end, {})
 
--- Wrap long lines in Trouble windows for better readability
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'trouble',
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-  end,
-})

@@ -34,7 +34,7 @@ return {
       'saghen/blink.cmp',
     },
     config = function()
-      -- Diagnostics: no inline/virtual lines (handled by tiny-inline-diagnostic),
+      -- Diagnostics: disable built-in virtual_text and floats (handled by tiny-inline-diagnostic),
       -- but keep visible hints via signs/underline and update while typing.
       vim.diagnostic.config {
         virtual_text = false,
@@ -43,6 +43,7 @@ return {
         underline = true,
         update_in_insert = true,
         severity_sort = true,
+        float = false, -- Disable floating diagnostic windows
       }
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('lspconfig').lua_ls.setup { capabilities = capabilities }
