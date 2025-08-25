@@ -30,7 +30,7 @@ require('lazy').setup({
 
   require 'custom/plugins/markdown-preview',
 
-  require 'custom.plugins.flash',
+   require 'custom/plugins/flash',
 
   require 'custom/plugins/alpha-startscreen',
 
@@ -58,9 +58,9 @@ require('lazy').setup({
 
   require 'kickstart/plugins/treesitter',
 
-  require 'kickstart.plugins.lint',
+   require 'kickstart/plugins/lint',
 
-  require 'kickstart.plugins.indent_line',
+   require 'kickstart/plugins/indent_line',
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

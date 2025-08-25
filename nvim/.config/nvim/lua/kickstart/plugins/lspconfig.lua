@@ -15,12 +15,12 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
-  {
-    -- Main LSP Configuration
-    'neovim/nvim-lspconfig',
+   {
+     -- Main LSP Configuration
+     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+       -- Automatically install LSPs and related tools to stdpath for Neovim
+       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'danarth/sonarlint.nvim',
@@ -195,28 +195,84 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
 
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+       require('mason-tool-installer').setup {
+         ensure_installed = ensure_installed,
+         auto_update = false, -- Don't auto-update on startup
+         run_on_start = false, -- Don't run on startup
+       }
 
-      require('mason-lspconfig').setup {
-        automatic_enable = true,
-        ensure_installed = ensure_installed,
-        automatic_installation = true,
+       require('mason-lspconfig').setup {
+         automatic_enable = true, -- Enable automatic enabling
+         ensure_installed = {}, -- Don't auto-install on startup (keep manual)
+         automatic_installation = false, -- Disable automatic installation
 
-        handlers = {
-          function(server_name)
-            local server_opts = servers[server_name] or {}
+         handlers = {
+           function(server_name)
+             local server_opts = servers[server_name] or {}
 
-            -- Force proper shape and deep-merge settings + capabilities
-            local opts = vim.tbl_deep_extend('force', {
-              capabilities = capabilities,
-              settings = {},
-            }, server_opts)
+             -- Force proper shape and deep-merge settings + capabilities
+             local opts = vim.tbl_deep_extend('force', {
+               capabilities = capabilities,
+               settings = {},
+             }, server_opts)
 
-            require('lspconfig')[server_name].setup(opts)
-          end,
-        },
-      }
-    end,
-  },
+             require('lspconfig')[server_name].setup(opts)
+           end,
+         },
+
+       }
+
+       -- Auto-setup configured servers
+       for server_name, _ in pairs(servers) do
+         local server_opts = servers[server_name] or {}
+         local opts = vim.tbl_deep_extend('force', {
+           capabilities = capabilities,
+           settings = {},
+         }, server_opts)
+
+          require('lspconfig')[server_name].setup(opts)
+        end
+
+       -- Command to install LSP servers on demand
+       vim.api.nvim_create_user_command('LSPInstall', function(opts)
+         local server = opts.args
+         if server and server ~= '' then
+           require('mason.api.command').MasonInstall({ server })
+           vim.notify('Installing LSP server: ' .. server, vim.log.levels.INFO)
+         else
+           vim.notify('Usage: :LSPInstall <server_name>', vim.log.levels.WARN)
+         end
+       end, { nargs = 1, desc = 'Install LSP server on demand' })
+
+       -- Command to manually enable LSP for current buffer
+       vim.api.nvim_create_user_command('LSPEnable', function()
+         local bufnr = vim.api.nvim_get_current_buf()
+         local filename = vim.api.nvim_buf_get_name(bufnr)
+         local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+
+         -- Try to find appropriate server for filetype
+         local server_name = nil
+         if filetype == 'lua' then
+           server_name = 'lua_ls'
+         elseif filetype == 'go' then
+           server_name = 'gopls'
+         end
+
+         if server_name then
+           local server_opts = servers[server_name] or {}
+           local opts = vim.tbl_deep_extend('force', {
+             capabilities = capabilities,
+             settings = {},
+           }, server_opts)
+
+           require('lspconfig')[server_name].setup(opts)
+           require('lspconfig')[server_name].manager:try_add_wrapper(bufnr)
+           vim.notify('LSP enabled for ' .. server_name, vim.log.levels.INFO)
+         else
+           vim.notify('No LSP server configured for filetype: ' .. filetype, vim.log.levels.WARN)
+         end
+       end, { desc = 'Enable LSP for current buffer' })
+     end,
+   },
 }
 -- vim: ts=2 sts=2 sw=2 et
