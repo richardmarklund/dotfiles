@@ -13,8 +13,16 @@ threshold = 50
 [aws]
 disabled = false 
 
+[kubernetes]
+style = 'bright-cyan'
+
+disabled = false 
+
 [package]
 disabled = true
+
+[directory]
+style = 'bold bright-blue'
 
 # ORDER
 [bun]

@@ -6,7 +6,7 @@ return {
     'j-hui/fidget.nvim',
     {
       'ravitemer/codecompanion-history.nvim',
-      lazy = false,
+      lazy = true,
     },
   },
   config = function()
