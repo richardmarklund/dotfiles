@@ -1,7 +1,7 @@
 alias cd="z"
 alias ls="eza --icons -G --group-directories-first"
 
-source ~/trident/functions
+source ~/trident/trident-dot-files/functions/functions
 
 
 
