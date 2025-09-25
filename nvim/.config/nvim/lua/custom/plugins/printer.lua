@@ -5,7 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
   },
-  lazy = false,
+  -- allow lazy loading at VeryLazy (no eager load)
   config = function()
     require('refactoring').setup()
     vim.keymap.set('n', 'gpp', function()

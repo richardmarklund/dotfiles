@@ -65,4 +65,14 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Enable spell checking for prose filetypes
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('kickstart-spell', { clear = true }),
+  pattern = { 'markdown', 'gitcommit', 'text', 'telekasten' },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = { 'en_us' }
+  end,
+})
+
 -- vim: ts=2 sts=2 sw=2 et

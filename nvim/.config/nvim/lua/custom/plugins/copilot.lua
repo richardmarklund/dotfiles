@@ -35,6 +35,7 @@ return {
     filetypes = {
       go = true,
       lua = true,
+      sql = true,
       python = true,
       javascript = true,
       typescript = true,

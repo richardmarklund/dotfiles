@@ -48,33 +48,9 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('lspconfig').lua_ls.setup { capabilities = capabilities }
 
-      -- Run goimprts after save, then it saves the new changes that go import made
-      vim.api.nvim_create_autocmd('BufWritePost', {
-        pattern = '*.go',
-        callback = function(args)
-          -- Prevent autocmd recursion
-          if vim.b.goimports_formatting then
-            vim.b.goimports_formatting = false
-            return
-          end
+      -- Formatting handled by conform.nvim (goimports)
 
-          local filepath = vim.api.nvim_buf_get_name(args.buf)
-          local goimports = vim.fn.system('goimports ' .. vim.fn.shellescape(filepath))
-          if vim.v.shell_error == 0 then
-            local lines = vim.split(goimports, '\n', { plain = true })
-            -- Remove trailing empty line if present (because vim.split adds an extra line for trailing NL)
-            if lines[#lines] == '' then
-              table.remove(lines, #lines)
-            end
-            local old_lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
-            if not vim.deep_equal(lines, old_lines) then
-              vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, lines)
-              vim.b.goimports_formatting = true
-              vim.cmd 'update' -- write changes only if buffer was changed
-            end
-          end
-        end,
-      })
+      -- Use only conform.nvim for Go formatting/imports (goimports)
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),

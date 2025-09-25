@@ -12,6 +12,16 @@ if vim.env.PROF then
   }
 end
 
+-- Disable netrw when using Neo-tree to avoid conflicts
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Disable unused language providers to silence healthcheck warnings
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+
 -- Startup time measurement
 local function measure_startup()
   local start_time = vim.loop.hrtime()
@@ -68,6 +78,35 @@ vim.api.nvim_create_user_command('MemoryUsage', function()
   local usage_mb = stats / 1024 / 1024
   vim.notify(string.format('Memory usage: %.2f MB', usage_mb), vim.log.levels.INFO)
 end, { desc = 'Show memory usage' })
+
+-- LSP log maintenance: trim oversized log file
+vim.api.nvim_create_user_command('LspLogTrim', function()
+  local log = vim.lsp.get_log_path()
+  local stat = vim.loop.fs_stat(log)
+  if not stat then
+    vim.notify('LSP log not found', vim.log.levels.INFO)
+    return
+  end
+  local ok, fh = pcall(io.open, log, 'w')
+  if ok and fh then
+    fh:write('')
+    fh:close()
+    vim.notify('LSP log truncated', vim.log.levels.INFO)
+  else
+    vim.notify('Failed to truncate LSP log', vim.log.levels.ERROR)
+  end
+end, { desc = 'Truncate LSP log file' })
+
+-- Auto-trim log if it grows too large (50MB)
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local log = vim.lsp.get_log_path()
+    local stat = vim.loop.fs_stat(log)
+    if stat and stat.size > 50 * 1024 * 1024 then
+      pcall(vim.cmd, 'LspLogTrim')
+    end
+  end,
+})
 
 -- Your other Neovim configuration here...
 -- to not show all diagnostics at the same time
@@ -204,6 +243,10 @@ local function convert_json_to_struct()
   end
 
   local cmd = 'json2struct -s "' .. selection:gsub('"', '\\"') .. '"'
+  if vim.fn.executable('json2struct') ~= 1 then
+    vim.notify('json2struct not found in PATH', vim.log.levels.WARN)
+    return
+  end
   local handle = io.popen(cmd)
   local result = handle:read '*a'
   handle:close()
@@ -224,8 +267,6 @@ vim.api.nvim_set_keymap('i', '<C-S-A-S>', '', { noremap = true, silent = true })
 vim.opt.conceallevel = 2
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
-vim.opt.fixeol = false
-vim.opt.eol = false
 
 vim.fn.setenv('DOCKER_HOST', 'unix:///Users/ab000717/.colima/docker.sock')
 vim.fn.setenv('TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE', '/var/run/docker.sock')
@@ -292,6 +333,10 @@ vim.api.nvim_create_user_command('EmmaSuggest', function()
 
   -- Run emma suggest
   local query = vim.fn.shellescape(paragraph)
+  if vim.fn.executable('emma') ~= 1 then
+    vim.notify('emma CLI not found in PATH', vim.log.levels.WARN)
+    return
+  end
   local output = vim.fn.systemlist('emma suggest --query ' .. query)
   vim.print(output)
 
@@ -317,4 +362,3 @@ vim.api.nvim_create_user_command('EmmaSuggest', function()
     border = 'rounded',
   })
 end, {})
-

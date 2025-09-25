@@ -8,9 +8,6 @@ source ~/trident/trident-dot-files/functions/functions
 export GPG_TTY=$(tty)
 export DOCKER_HOST=unix:///Users/ab000717/.colima/docker.sock
 export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-
 
 
 # Created by `pipx` on 2023-04-06 08:37:04
@@ -53,15 +50,6 @@ alias yarn="nvm_lazy; yarn"  # This loads nvm
 
 # Created by `pipx` on 2024-12-10 14:29:43
 export PATH="$PATH:/Users/ab000717/.local/bin"
-
-# bun completions
-[ -s "/Users/ab000717/.bun/_bun" ] && source "/Users/ab000717/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-
 
 export GOPRIVATE=github.com/cariad-odp
 alias k="kubectl"

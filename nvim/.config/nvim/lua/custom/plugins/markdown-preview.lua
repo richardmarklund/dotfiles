@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<leader>m', ':MarkdownPreviewToggle<CR>', { desc = 'Toggle [m]arkdown preview' })
+vim.keymap.set('n', '<leader>um', ':MarkdownPreviewToggle<CR>', { desc = 'Toggle [U]tility [M]arkdown preview' })
 
 return {
   'iamcco/markdown-preview.nvim',

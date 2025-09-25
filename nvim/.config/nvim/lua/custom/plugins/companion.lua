@@ -1,5 +1,14 @@
 return {
   'olimorris/codecompanion.nvim',
+  cmd = { 'CodeCompanion', 'CodeCompanionActions', 'CodeCompanionChat', 'CodeCompanionHistory' },
+  keys = {
+    { '<leader>aa', '<cmd>CodeCompanionActions<CR>', desc = 'Open CodeCompanion Actions' },
+    { '<leader>ac', '<cmd>CodeCompanionChat<CR>', desc = 'Open CodeCompanion Chat' },
+    { '<leader>ah', '<cmd>CodeCompanionHistory<CR>', desc = 'Open CodeCompanion Chat History' },
+    { '<leader>at', mode = 'v', function() require('codecompanion').prompt 'tests' end, desc = 'Generate unit tests' },
+    { '<leader>ae', function() require('codecompanion').prompt 'explain' end, desc = 'Explain buffer' },
+    { '<leader>al', function() require('codecompanion').prompt 'lsp' end, desc = 'Explain LSP diagnostics' },
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
@@ -41,23 +50,6 @@ return {
         },
       },
     }
-    -- Keymaps using command line interface
-    vim.keymap.set('n', '<leader>aa', ':CodeCompanionActions<CR>', { noremap = true, silent = true, desc = 'Open CodeCompanion Actions' })
-    vim.keymap.set('n', '<leader>ac', ':CodeCompanionChat<CR>', { noremap = true, silent = true, desc = 'Open CodeCompanion Chat' })
-    vim.keymap.set('n', '<leader>ah', ':CodeCompanionHistory<CR>', { noremap = true, silent = true, desc = 'Open CodeCompanion Chat History' })
-
-    -- Prompt-based actions (Lua only)
-    vim.keymap.set('v', '<leader>at', function()
-      require('codecompanion').prompt 'tests'
-    end, { noremap = true, silent = true, desc = 'Generate unit tests' })
-
-    vim.keymap.set('n', '<leader>ae', function()
-      require('codecompanion').prompt 'explain'
-    end, { noremap = true, silent = true, desc = 'Explain buffer' })
-
-    vim.keymap.set('n', '<leader>al', function()
-      require('codecompanion').prompt 'lsp'
-    end, { noremap = true, silent = true, desc = 'Explain LSP diagnostics' })
   end,
   init = function()
     require('custom.plugins.fidget-spinner'):init()

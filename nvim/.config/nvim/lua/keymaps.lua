@@ -1,12 +1,9 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-vim.keymap.set(
-  { 'n', 'i' }, -- list of map modes it'll work in
-  [[<C-a]],
-  function()
-    vim.lsp.buf.hover() {}
-  end
-)
+-- Use `K` for LSP hover (avoid shadowing <C-a>)
+vim.keymap.set('n', 'K', function()
+  vim.lsp.buf.hover()
+end, { desc = 'LSP Hover' })
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -90,12 +87,14 @@ vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste without yanking' })
 vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 
--- Mapping for quit and save
-vim.keymap.set('n', 'wq', '<cmd>q<CR>', { desc = 'Quick for :q' })
+-- Mapping for quit and save (keep defaults)
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
 vim.keymap.set('n', '<leader>ua', '<cmd>Alpha<CR>', { desc = '[U]I [A]lpha dashboard' })
+vim.keymap.set('n', '<leader>us', function()
+  vim.opt_local.spell = not vim.opt_local.spell:get()
+end, { desc = '[U]I toggle [S]pell' })
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -103,7 +102,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    local hl = vim.hl and vim.hl.on_yank or (vim.highlight and vim.highlight.on_yank)
+    if hl then
+      hl()
+    end
   end,
 })
 
@@ -125,10 +127,7 @@ vim.keymap.set('n', '<leader>sW', function()
 end, { desc = '[S]earch [W]ord under cursor (WORD)' })
 
 -- Git workflow enhancements
-vim.keymap.set('n', '<leader>gs', '<cmd>Git status<CR>', { desc = '[G]it [S]tatus' })
-vim.keymap.set('n', '<leader>gc', '<cmd>Git commit<CR>', { desc = '[G]it [C]ommit' })
-vim.keymap.set('n', '<leader>gp', '<cmd>Git push<CR>', { desc = '[G]it [P]ush' })
-vim.keymap.set('n', '<leader>gl', '<cmd>Git log --oneline<CR>', { desc = '[G]it [L]og' })
+-- Use LazyGit (<leader>l) from plugin; remove fugitive-only maps
 
 -- Code navigation enhancements (lazy loaded)
 vim.keymap.set('n', '<leader>cd', '<cmd>Telescope lsp_definitions<CR>', { desc = '[C]ode [D]efinition' })
