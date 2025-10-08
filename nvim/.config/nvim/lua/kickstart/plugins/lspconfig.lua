@@ -46,6 +46,9 @@ return {
         float = false, -- Disable floating diagnostic windows
       }
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+      -- Enable LSP-powered folding (used by gopls and others)
+      capabilities.textDocument = capabilities.textDocument or {}
+      capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
       require('lspconfig').lua_ls.setup { capabilities = capabilities }
 
       -- Formatting handled by conform.nvim (goimports)
@@ -139,6 +142,50 @@ return {
         end,
       })
 
+      -- Prefer a user/system-installed cucumber-language-server if present
+      local function is_exec(p)
+        return p and p ~= '' and (vim.uv.fs_access(p, 'X') or vim.fn.executable(p) == 1)
+      end
+
+      local function global_bin(tool, args)
+        local ok, out = pcall(vim.fn.systemlist, vim.list_extend({ tool }, args or {}))
+        if ok and out and #out > 0 then
+          return (out[1] or '')
+        end
+        return ''
+      end
+
+      local function find_cucumber_ls()
+        -- 1) Explicit env override
+        local from_env = vim.env.CUCUMBER_LANGUAGE_SERVER or vim.env.CUCUMBER_LS
+        if is_exec(from_env) then
+          return { from_env, '--stdio' }
+        end
+
+        -- 2) PATH discovery
+        local exepath = vim.fn.exepath('cucumber-language-server')
+        if is_exec(exepath) then
+          return { exepath, '--stdio' }
+        end
+
+        -- 3) npm/pnpm/yarn global bins
+        local npm_bin = global_bin('npm', { 'bin', '-g' })
+        if is_exec(npm_bin .. '/cucumber-language-server') then
+          return { npm_bin .. '/cucumber-language-server', '--stdio' }
+        end
+        local pnpm_bin = global_bin('pnpm', { 'bin', '-g' })
+        if is_exec(pnpm_bin .. '/cucumber-language-server') then
+          return { pnpm_bin .. '/cucumber-language-server', '--stdio' }
+        end
+        local yarn_bin = global_bin('yarn', { 'global', 'bin' })
+        if is_exec(yarn_bin .. '/cucumber-language-server') then
+          return { yarn_bin .. '/cucumber-language-server', '--stdio' }
+        end
+
+        -- 4) Defer to project-local detection in on_new_config
+        return nil
+      end
+
       local servers = {
         gopls = {
           cmd = { 'gopls' },
@@ -147,12 +194,66 @@ return {
               gofumpt = true,
               staticcheck = true,
               verboseOutput = false,
-              buildFlags = { '-tags=integration' },
+              buildFlags = { '-tags=integration,watermillintegration' },
               analyses = {
                 unusedparams = true,
               },
               usePlaceholders = true,
               completeUnimported = true,
+            },
+          },
+        },
+        -- Cucumber/Gherkin LSP (supports Godog step discovery)
+        cucumber_language_server = {
+          -- Use system/global/local binary if available
+          cmd = find_cucumber_ls(),
+          -- Neovim typically uses 'gherkin' or 'cucumber' for *.feature
+          filetypes = { 'gherkin', 'cucumber' },
+          root_dir = function(fname)
+            local util = require('lspconfig.util')
+            local path = util.path
+
+            -- Prefer the Godog tester module root if present
+            local tester_root = util.search_ancestors(fname, function(dir)
+              local has_features = path.is_dir(path.join(dir, 'cmd', 'features'))
+              local has_steps = path.is_dir(path.join(dir, 'internal', 'steps'))
+              if has_features or has_steps then
+                return dir
+              end
+            end)
+
+            -- Only start when inside a tester-style cucumber project
+            if tester_root then
+              return tester_root
+            end
+
+            -- No suitable root found: do not start for this file
+            return nil
+          end,
+          single_file_support = false,
+          on_new_config = function(config, root)
+            if config.cmd and #config.cmd > 0 then return end
+            if not root or root == '' then return end
+            local local_bin = root .. '/node_modules/.bin/cucumber-language-server'
+            if is_exec(local_bin) then
+              config.cmd = { local_bin, '--stdio' }
+            end
+          end,
+          -- The Cucumber LS expects initializationOptions for features/glue
+          init_options = {
+            cucumber = {
+              -- Point to your features and Godog step definitions
+              features = { 'cmd/features/**/*.feature' },
+              glue = {
+                'internal/steps/**/*.go',
+              },
+            },
+          },
+          -- Also provide settings so you can see them in :LspInfo
+          settings = {
+            cucumber = {
+              features = { 'cmd/features/**/*.feature' },
+              glue = { 'internal/steps/**/*.go' },
             },
           },
         },
@@ -184,6 +285,9 @@ return {
 
          handlers = {
            function(server_name)
+             -- Skip servers we set up manually to avoid duplicates
+             if server_name == 'cucumber_language_server' or server_name == 'gopls' then return end
+
              local server_opts = servers[server_name] or {}
 
              -- Force proper shape and deep-merge settings + capabilities
@@ -198,16 +302,25 @@ return {
 
        }
 
-       -- Auto-setup configured servers
-       for server_name, _ in pairs(servers) do
-         local server_opts = servers[server_name] or {}
+       -- Manual setup for cucumber_language_server so our init_options/root_dir apply
+       do
+         local server_opts = servers['cucumber_language_server'] or {}
          local opts = vim.tbl_deep_extend('force', {
            capabilities = capabilities,
            settings = {},
          }, server_opts)
+         require('lspconfig').cucumber_language_server.setup(opts)
+       end
 
-          require('lspconfig')[server_name].setup(opts)
-        end
+       -- Manual setup for gopls (installed outside Mason)
+       do
+         local server_opts = servers['gopls'] or {}
+         local opts = vim.tbl_deep_extend('force', {
+           capabilities = capabilities,
+           settings = {},
+         }, server_opts)
+         require('lspconfig').gopls.setup(opts)
+       end
 
        -- Command to install LSP servers on demand
        vim.api.nvim_create_user_command('LSPInstall', function(opts)

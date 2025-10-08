@@ -20,7 +20,7 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 export GOPRIVATE=github.com/org-*
 export GIT_SSH_COMMAND="ssh -F ~/.ssh/config"
-
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -66,3 +66,5 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 # SSH key switching aliases
 alias gprivate="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/id_richardmarklund"
 alias gcariad="ssh-add -D && ssh-add --apple-use-keychain ~/.ssh/id_marklund_io"
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"

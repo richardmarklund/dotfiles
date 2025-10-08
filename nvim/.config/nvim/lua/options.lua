@@ -65,6 +65,11 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Use LSP-based folding (gopls supports foldingRange)
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+vim.opt.foldlevel = 99 -- keep folds open by default
+
 -- Enable spell checking for prose filetypes
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('kickstart-spell', { clear = true }),

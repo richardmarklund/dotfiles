@@ -100,11 +100,11 @@ return {
         adapters = {
           require 'neotest-golang' {
             experimental = true,
-            go_test_args = { '-count=1', '-tags=integration', '-coverprofile=coverage.out' },
-            go_list_args = { '-tags=integration' },
+            go_test_args = { '-count=1', '-tags=integration,watermillintegration', '-coverprofile=coverage.out' },
+            go_list_args = { '-tags=integration,watermillintegration' },
             dap_go_opts = {
               delve = {
-                build_flags = { '-tags=integration' },
+                build_flags = { '-tags=integration,watermillintegration' },
               },
             },
           },

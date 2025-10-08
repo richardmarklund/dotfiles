@@ -126,6 +126,16 @@ vim.keymap.set('n', '<leader>sW', function()
   vim.cmd('Telescope grep_string search=' .. word)
 end, { desc = '[S]earch [W]ord under cursor (WORD)' })
 
+-- Search directories and reveal selection in Neo-tree
+vim.keymap.set('n', '<leader>se', function()
+  require('custom.pickers.folders').search_folders()
+end, { desc = '[S]earch [E]xplorer folder (Neo-tree reveal)' })
+
+-- Optional command to trigger the same picker
+vim.api.nvim_create_user_command('SearchFolders', function()
+  require('custom.pickers.folders').search_folders()
+end, {})
+
 -- Git workflow enhancements
 -- Use LazyGit (<leader>l) from plugin; remove fugitive-only maps
 
