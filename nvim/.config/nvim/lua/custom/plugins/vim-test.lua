@@ -5,8 +5,20 @@ return {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
       'antoinemadec/FixCursorHold.nvim',
-      'nvim-treesitter/nvim-treesitter',
-      { 'fredrikaverpil/neotest-golang', version = '*' },
+      {
+        'nvim-treesitter/nvim-treesitter', -- Optional, but recommended
+        branch = 'main', -- NOTE; not the master branch!
+        build = function()
+          vim.cmd ':TSUpdate go'
+        end,
+      },
+      {
+        'fredrikaverpil/neotest-golang',
+        version = '*', -- Optional, but recommended; track releases
+        build = function()
+          vim.system({ 'go', 'install', 'gotest.tools/gotestsum@latest' }):wait() -- Optional, but recommended
+        end,
+      },
     },
     keys = {
       {
@@ -95,10 +107,11 @@ return {
       },
     },
     config = function()
-      local neotest_golang_opts = {}
       require('neotest').setup {
         adapters = {
           require 'neotest-golang' {
+            runner = 'gotestsum', -- Optional, but recommended
+            warn_test_name_dupes = false,
             experimental = true,
             go_test_args = { '-count=1', '-tags=integration,watermillintegration', '-coverprofile=coverage.out' },
             go_list_args = { '-tags=integration,watermillintegration' },
