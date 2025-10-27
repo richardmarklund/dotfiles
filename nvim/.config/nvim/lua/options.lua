@@ -39,6 +39,9 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+-- Enable 24-bit colors for richer highlights
+vim.opt.termguicolors = true
+
 -- Decrease update time
 vim.opt.updatetime = 250
 

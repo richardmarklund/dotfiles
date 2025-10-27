@@ -14,6 +14,7 @@ require('lazy').setup({
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
   },
+  require 'custom/plugins/snacks',
   require 'custom/plugins/tiny-inline-diagnostic',
   require 'custom/plugins/codeaction',
   require 'custom/plugins/fidget',
@@ -27,10 +28,9 @@ require('lazy').setup({
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
 
-
   require 'custom/plugins/markdown-preview',
 
-   require 'custom/plugins/flash',
+  require 'custom/plugins/flash',
 
   require 'custom/plugins/alpha-startscreen',
 
@@ -39,8 +39,6 @@ require('lazy').setup({
   require 'custom/plugins/tmux-nvim-navigator',
 
   require 'kickstart/plugins/gitsigns',
-
-  require 'custom/plugins/lazygit',
 
   require 'kickstart/plugins/which-key',
 
@@ -58,9 +56,9 @@ require('lazy').setup({
 
   require 'kickstart/plugins/treesitter',
 
-   require 'kickstart/plugins/lint',
+  require 'kickstart/plugins/lint',
 
-   require 'kickstart/plugins/indent_line',
+  require 'kickstart/plugins/indent_line',
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -70,7 +68,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

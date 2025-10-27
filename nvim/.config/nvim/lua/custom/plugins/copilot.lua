@@ -25,11 +25,11 @@ return {
         jump_next = ']]',
         accept = '<CR>',
         refresh = 'gr',
-        open = '<M-CR>' -- Alt+Enter to open panel
+        open = '<M-CR>', -- Alt+Enter to open panel
       },
       layout = {
         position = 'bottom', -- | top | left | right
-        ratio = 0.4
+        ratio = 0.4,
       },
     },
     filetypes = {
@@ -60,8 +60,8 @@ return {
         advanced = {
           listCount = 10, -- increase list size
           inlineSuggestCount = 3, -- increase inline suggestions
-        }
-      }
+        },
+      },
     },
   },
 }

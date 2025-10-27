@@ -48,10 +48,10 @@ return {
     if ok and themes and type(themes.get_dropdown) == 'function' then
       opts.telescope = vim.tbl_extend(
         'force',
-        themes.get_ivy({
+        themes.get_ivy {
           layout_config = { height = 0.45, preview_width = 0.7 },
           previewer = true,
-        }),
+        },
         {
           make_value = nil,
           make_make_display = nil,

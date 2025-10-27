@@ -30,7 +30,7 @@ local function measure_startup()
       local end_time = vim.loop.hrtime()
       local startup_time = (end_time - start_time) / 1e6 -- Convert to milliseconds
       vim.notify(string.format('Startup time: %.2f ms', startup_time), vim.log.levels.INFO)
-    end
+    end,
   })
 end
 
@@ -39,14 +39,14 @@ measure_startup()
 
 -- Performance monitoring commands
 vim.api.nvim_create_user_command('ProfileStart', function()
-  vim.cmd('profile start profile.log')
-  vim.cmd('profile func *')
-  vim.cmd('profile file *')
+  vim.cmd 'profile start profile.log'
+  vim.cmd 'profile func *'
+  vim.cmd 'profile file *'
   vim.notify('Profiling started - use :ProfileStop to finish', vim.log.levels.INFO)
 end, { desc = 'Start profiling' })
 
 vim.api.nvim_create_user_command('ProfileStop', function()
-  vim.cmd('profile stop')
+  vim.cmd 'profile stop'
   vim.notify('Profile saved to profile.log', vim.log.levels.INFO)
 end, { desc = 'Stop profiling' })
 
@@ -55,7 +55,7 @@ vim.api.nvim_create_user_command('OptimizeConfig', function()
   vim.notify('Running optimization checks...', vim.log.levels.INFO)
 
   -- Check for unused plugins
-  local lazy = require('lazy')
+  local lazy = require 'lazy'
   local plugins = lazy.plugins()
   local unused = {}
 
@@ -89,7 +89,7 @@ vim.api.nvim_create_user_command('LspLogTrim', function()
   end
   local ok, fh = pcall(io.open, log, 'w')
   if ok and fh then
-    fh:write('')
+    fh:write ''
     fh:close()
     vim.notify('LSP log truncated', vim.log.levels.INFO)
   else
@@ -243,7 +243,7 @@ local function convert_json_to_struct()
   end
 
   local cmd = 'json2struct -s "' .. selection:gsub('"', '\\"') .. '"'
-  if vim.fn.executable('json2struct') ~= 1 then
+  if vim.fn.executable 'json2struct' ~= 1 then
     vim.notify('json2struct not found in PATH', vim.log.levels.WARN)
     return
   end
@@ -260,6 +260,8 @@ local function convert_json_to_struct()
 end
 
 vim.keymap.set('v', '<leader>cs', convert_json_to_struct, { noremap = true, silent = true, desc = 'convert json to struct' })
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 vim.api.nvim_set_keymap('i', '<C-S-A-S>', '', { noremap = true, silent = true })
 
@@ -294,10 +296,10 @@ end
 vim.api.nvim_set_keymap('n', '<Leader>ug', ':lua ToggleGoTestFile()<CR>', { noremap = true, silent = true, desc = '[U]I [G]o test toggle' })
 
 -- Remove default LSP keymaps that create submenus
-pcall(vim.keymap.del, 'n', 'grr')  -- LSP rename
-pcall(vim.keymap.del, 'n', 'grn')  -- LSP rename (alternative)
-pcall(vim.keymap.del, 'n', 'gra')  -- LSP code action
-pcall(vim.keymap.del, 'n', 'gri')  -- LSP implementation
+pcall(vim.keymap.del, 'n', 'grr') -- LSP rename
+pcall(vim.keymap.del, 'n', 'grn') -- LSP rename (alternative)
+pcall(vim.keymap.del, 'n', 'gra') -- LSP code action
+pcall(vim.keymap.del, 'n', 'gri') -- LSP implementation
 
 -- Fallback: Built-in LSP code action in visual mode
 vim.keymap.set('v', '<leader>cA', function()
@@ -333,7 +335,7 @@ vim.api.nvim_create_user_command('EmmaSuggest', function()
 
   -- Run emma suggest
   local query = vim.fn.shellescape(paragraph)
-  if vim.fn.executable('emma') ~= 1 then
+  if vim.fn.executable 'emma' ~= 1 then
     vim.notify('emma CLI not found in PATH', vim.log.levels.WARN)
     return
   end

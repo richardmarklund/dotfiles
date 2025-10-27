@@ -67,7 +67,7 @@ return {
             sort_lastused = true,
             ignore_current_buffer = true,
           },
-          
+
           lsp_implementations = {
             show_line = false,
             fname_width = 100,
@@ -76,7 +76,7 @@ return {
               if string.find(string.lower(entry.filename), 'mock') then
                 return nil
               end
-              
+
               local filename = require('telescope.utils').transform_path({}, entry.filename)
               return {
                 value = entry,

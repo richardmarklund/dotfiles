@@ -11,7 +11,7 @@ return {
     sources = {
       -- enable LSP (gopls) + common fallbacks; keep Copilot too
       default = { 'lsp', 'copilot', 'path', 'buffer', 'snippets' },
-      
+
       -- Per-filetype sources
       per_filetype = {
         go = { 'lsp', 'copilot', 'path', 'buffer', 'snippets' },

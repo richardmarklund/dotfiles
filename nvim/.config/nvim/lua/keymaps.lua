@@ -10,8 +10,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps (suppress built-in floats since we use tiny-inline-diagnostic)
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]iagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>dn', function() vim.diagnostic.goto_next({ float = false }) end, { desc = '[D]iagnostic [N]ext' })
-vim.keymap.set('n', '<leader>dp', function() vim.diagnostic.goto_prev({ float = false }) end, { desc = '[D]iagnostic [P]revious' })
+vim.keymap.set('n', '<leader>dn', function()
+  vim.diagnostic.goto_next { float = false }
+end, { desc = '[D]iagnostic [N]ext' })
+vim.keymap.set('n', '<leader>dp', function()
+  vim.diagnostic.goto_prev { float = false }
+end, { desc = '[D]iagnostic [P]revious' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -61,18 +65,18 @@ end
 
 local function smart_move_left()
   local neotree_open, neotree_win = is_neotree_open()
-  
+
   if neotree_open then
     -- Move current window to the far left
-    vim.cmd('wincmd H')
+    vim.cmd 'wincmd H'
     -- Now move neotree to the far left (which pushes our window to second position)
     vim.api.nvim_set_current_win(neotree_win)
-    vim.cmd('wincmd H')
+    vim.cmd 'wincmd H'
     -- Focus back on our moved window (now second from left)
-    vim.cmd('wincmd l')
+    vim.cmd 'wincmd l'
   else
     -- Normal behavior if neotree is closed
-    vim.cmd('wincmd H')
+    vim.cmd 'wincmd H'
   end
 end
 
@@ -117,12 +121,12 @@ vim.keymap.set('n', '<leader>bl', '<cmd>buffers<CR>', { desc = '[B]uffer [L]ist'
 
 -- Smart search enhancements (lazy loaded)
 vim.keymap.set('n', '<leader>sw', function()
-  local word = vim.fn.expand('<cword>')
+  local word = vim.fn.expand '<cword>'
   vim.cmd('Telescope grep_string search=' .. word)
 end, { desc = '[S]earch [W]ord under cursor' })
 
 vim.keymap.set('n', '<leader>sW', function()
-  local word = vim.fn.expand('<cWORD>')
+  local word = vim.fn.expand '<cWORD>'
   vim.cmd('Telescope grep_string search=' .. word)
 end, { desc = '[S]earch [W]ord under cursor (WORD)' })
 

@@ -20,25 +20,30 @@ config.hide_tab_bar_if_only_one_tab = true
 config.leader = { key = "a", mods = "CTRL" }
 config.keys = {
 	{
-		key = "y",
+		key = "h",
 		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Left", 5 }),
 	},
 	{
-		key = "u",
+		key = "j",
 		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Down", 5 }),
 	},
-	{ key = "i", mods = "CTRL|CMD", action = act.AdjustPaneSize({ "Up", 5 }) },
+	{ key = "k", mods = "CTRL|CMD", action = act.AdjustPaneSize({ "Up", 5 }) },
 	{
-		key = "o",
+		key = "l",
 		mods = "CTRL|CMD",
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
-		key = "s",
+		key = "K",
 		mods = "CTRL",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "J",
+		mods = "CTRL",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{ key = "g", mods = "CTRL", action = wezterm.action.ActivateCopyMode },
 	{
@@ -65,11 +70,6 @@ config.keys = {
 	},
 	-- Turn off the default CMD-m Hide action, allowing CMD-m to
 	-- be potentially recognized and handled by the tab
-	{
-		key = "k",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.DisableDefaultAssignment,
-	},
 }
 config.inactive_pane_hsb = {
 	saturation = 0.8,

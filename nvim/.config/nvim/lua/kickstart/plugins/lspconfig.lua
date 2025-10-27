@@ -15,12 +15,12 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
-   {
-     -- Main LSP Configuration
-     'neovim/nvim-lspconfig',
+  {
+    -- Main LSP Configuration
+    'neovim/nvim-lspconfig',
     dependencies = {
-       -- Automatically install LSPs and related tools to stdpath for Neovim
-       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      -- Automatically install LSPs and related tools to stdpath for Neovim
+      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'danarth/sonarlint.nvim',
@@ -65,7 +65,6 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc, noremap = true, silent = true })
           end
 
-
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Ensure gr directly opens telescope references without submenu
@@ -73,13 +72,13 @@ return {
 
           -- Custom implementation function that auto-jumps if only one result
           map('gi', function()
-            vim.lsp.buf.implementation({
+            vim.lsp.buf.implementation {
               on_list = function(options)
                 -- Filter out mock files
                 local filtered_items = vim.tbl_filter(function(item)
                   return not string.find(string.lower(item.filename), 'mock')
                 end, options.items)
-                
+
                 if #filtered_items == 0 then
                   vim.notify('No implementations found', vim.log.levels.INFO)
                   return
@@ -87,15 +86,15 @@ return {
                   -- Jump directly to single result
                   local item = filtered_items[1]
                   vim.cmd('edit ' .. item.filename)
-                  vim.api.nvim_win_set_cursor(0, {item.lnum, item.col})
+                  vim.api.nvim_win_set_cursor(0, { item.lnum, item.col })
                 else
                   -- Use telescope for multiple results
                   -- Update options with filtered items
                   options.items = filtered_items
                   require('telescope.builtin').lsp_implementations()
                 end
-              end
-            })
+              end,
+            }
           end, '[G]oto [I]mplementation')
 
           map('<leader>cd', require('telescope.builtin').lsp_type_definitions, '[C]ode type [D]efinition')
@@ -163,7 +162,7 @@ return {
         end
 
         -- 2) PATH discovery
-        local exepath = vim.fn.exepath('cucumber-language-server')
+        local exepath = vim.fn.exepath 'cucumber-language-server'
         if is_exec(exepath) then
           return { exepath, '--stdio' }
         end
@@ -210,7 +209,7 @@ return {
           -- Neovim typically uses 'gherkin' or 'cucumber' for *.feature
           filetypes = { 'gherkin', 'cucumber' },
           root_dir = function(fname)
-            local util = require('lspconfig.util')
+            local util = require 'lspconfig.util'
             local path = util.path
 
             -- Prefer the Godog tester module root if present
@@ -232,8 +231,12 @@ return {
           end,
           single_file_support = false,
           on_new_config = function(config, root)
-            if config.cmd and #config.cmd > 0 then return end
-            if not root or root == '' then return end
+            if config.cmd and #config.cmd > 0 then
+              return
+            end
+            if not root or root == '' then
+              return
+            end
             local local_bin = root .. '/node_modules/.bin/cucumber-language-server'
             if is_exec(local_bin) then
               config.cmd = { local_bin, '--stdio' }
@@ -272,96 +275,97 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
 
-       require('mason-tool-installer').setup {
-         ensure_installed = ensure_installed,
-         auto_update = false, -- Don't auto-update on startup
-         run_on_start = false, -- Don't run on startup
-       }
+      require('mason-tool-installer').setup {
+        ensure_installed = ensure_installed,
+        auto_update = false, -- Don't auto-update on startup
+        run_on_start = false, -- Don't run on startup
+      }
 
-       require('mason-lspconfig').setup {
-         automatic_enable = true, -- Enable automatic enabling
-         ensure_installed = {}, -- Don't auto-install on startup (keep manual)
-         automatic_installation = false, -- Disable automatic installation
+      require('mason-lspconfig').setup {
+        automatic_enable = true, -- Enable automatic enabling
+        ensure_installed = {}, -- Don't auto-install on startup (keep manual)
+        automatic_installation = false, -- Disable automatic installation
 
-         handlers = {
-           function(server_name)
-             -- Skip servers we set up manually to avoid duplicates
-             if server_name == 'cucumber_language_server' or server_name == 'gopls' then return end
+        handlers = {
+          function(server_name)
+            -- Skip servers we set up manually to avoid duplicates
+            if server_name == 'cucumber_language_server' or server_name == 'gopls' then
+              return
+            end
 
-             local server_opts = servers[server_name] or {}
+            local server_opts = servers[server_name] or {}
 
-             -- Force proper shape and deep-merge settings + capabilities
-             local opts = vim.tbl_deep_extend('force', {
-               capabilities = capabilities,
-               settings = {},
-             }, server_opts)
+            -- Force proper shape and deep-merge settings + capabilities
+            local opts = vim.tbl_deep_extend('force', {
+              capabilities = capabilities,
+              settings = {},
+            }, server_opts)
 
-             require('lspconfig')[server_name].setup(opts)
-           end,
-         },
+            require('lspconfig')[server_name].setup(opts)
+          end,
+        },
+      }
 
-       }
+      -- Manual setup for cucumber_language_server so our init_options/root_dir apply
+      do
+        local server_opts = servers['cucumber_language_server'] or {}
+        local opts = vim.tbl_deep_extend('force', {
+          capabilities = capabilities,
+          settings = {},
+        }, server_opts)
+        require('lspconfig').cucumber_language_server.setup(opts)
+      end
 
-       -- Manual setup for cucumber_language_server so our init_options/root_dir apply
-       do
-         local server_opts = servers['cucumber_language_server'] or {}
-         local opts = vim.tbl_deep_extend('force', {
-           capabilities = capabilities,
-           settings = {},
-         }, server_opts)
-         require('lspconfig').cucumber_language_server.setup(opts)
-       end
+      -- Manual setup for gopls (installed outside Mason)
+      do
+        local server_opts = servers['gopls'] or {}
+        local opts = vim.tbl_deep_extend('force', {
+          capabilities = capabilities,
+          settings = {},
+        }, server_opts)
+        require('lspconfig').gopls.setup(opts)
+      end
 
-       -- Manual setup for gopls (installed outside Mason)
-       do
-         local server_opts = servers['gopls'] or {}
-         local opts = vim.tbl_deep_extend('force', {
-           capabilities = capabilities,
-           settings = {},
-         }, server_opts)
-         require('lspconfig').gopls.setup(opts)
-       end
+      -- Command to install LSP servers on demand
+      vim.api.nvim_create_user_command('LSPInstall', function(opts)
+        local server = opts.args
+        if server and server ~= '' then
+          require('mason.api.command').MasonInstall { server }
+          vim.notify('Installing LSP server: ' .. server, vim.log.levels.INFO)
+        else
+          vim.notify('Usage: :LSPInstall <server_name>', vim.log.levels.WARN)
+        end
+      end, { nargs = 1, desc = 'Install LSP server on demand' })
 
-       -- Command to install LSP servers on demand
-       vim.api.nvim_create_user_command('LSPInstall', function(opts)
-         local server = opts.args
-         if server and server ~= '' then
-           require('mason.api.command').MasonInstall({ server })
-           vim.notify('Installing LSP server: ' .. server, vim.log.levels.INFO)
-         else
-           vim.notify('Usage: :LSPInstall <server_name>', vim.log.levels.WARN)
-         end
-       end, { nargs = 1, desc = 'Install LSP server on demand' })
+      -- Command to manually enable LSP for current buffer
+      vim.api.nvim_create_user_command('LSPEnable', function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
 
-       -- Command to manually enable LSP for current buffer
-       vim.api.nvim_create_user_command('LSPEnable', function()
-         local bufnr = vim.api.nvim_get_current_buf()
-         local filename = vim.api.nvim_buf_get_name(bufnr)
-         local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+        -- Try to find appropriate server for filetype
+        local server_name = nil
+        if filetype == 'lua' then
+          server_name = 'lua_ls'
+        elseif filetype == 'go' then
+          server_name = 'gopls'
+        end
 
-         -- Try to find appropriate server for filetype
-         local server_name = nil
-         if filetype == 'lua' then
-           server_name = 'lua_ls'
-         elseif filetype == 'go' then
-           server_name = 'gopls'
-         end
+        if server_name then
+          local server_opts = servers[server_name] or {}
+          local opts = vim.tbl_deep_extend('force', {
+            capabilities = capabilities,
+            settings = {},
+          }, server_opts)
 
-         if server_name then
-           local server_opts = servers[server_name] or {}
-           local opts = vim.tbl_deep_extend('force', {
-             capabilities = capabilities,
-             settings = {},
-           }, server_opts)
-
-           require('lspconfig')[server_name].setup(opts)
-           require('lspconfig')[server_name].manager:try_add_wrapper(bufnr)
-           vim.notify('LSP enabled for ' .. server_name, vim.log.levels.INFO)
-         else
-           vim.notify('No LSP server configured for filetype: ' .. filetype, vim.log.levels.WARN)
-         end
-       end, { desc = 'Enable LSP for current buffer' })
-     end,
-   },
+          require('lspconfig')[server_name].setup(opts)
+          require('lspconfig')[server_name].manager:try_add_wrapper(bufnr)
+          vim.notify('LSP enabled for ' .. server_name, vim.log.levels.INFO)
+        else
+          vim.notify('No LSP server configured for filetype: ' .. filetype, vim.log.levels.WARN)
+        end
+      end, { desc = 'Enable LSP for current buffer' })
+    end,
+  },
 }
 -- vim: ts=2 sts=2 sw=2 et

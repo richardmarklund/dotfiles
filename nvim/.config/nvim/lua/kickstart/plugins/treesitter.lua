@@ -1,40 +1,93 @@
 return {
-  { -- Highlight, edit, and navigate code
+  -- Core Treesitter (rewrite branch)
+  {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false, -- ← per README: do NOT lazy-load
     build = ':TSUpdate',
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'lua', 'vim', 'vimdoc', 'go' }, -- Only essential languages on startup
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      -- Load additional languages on demand
-      sync_install = false,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    dependencies = {},
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+    config = function()
+      -- Install/ensure parsers (async; see README)
+      -- Tip: keep this list small & relevant
+      require('nvim-treesitter').install({ 'go', 'gomod', 'lua', 'vim', 'bash', 'regex', 'vimdoc' }):wait(300000) -- optional bootstrap wait (max 5min) per README
+
+      -- Start highlighting when filetype is set (exactly as README shows)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'go', 'gomod', 'lua', 'vim', 'bash' },
+        callback = function()
+          vim.treesitter.start()
+        end,
+        group = vim.api.nvim_create_augroup('TSMainStart', { clear = true }),
+      })
+
+      -- Optional: Treesitter folds/indent (see README “Supported features”)
+      -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
   },
 
-  -- Command to load additional languages on demand
-  vim.api.nvim_create_user_command('TSLoadExtra', function()
-    local ts = require 'nvim-treesitter.configs'
-    ts.setup {
-      ensure_installed = { 'go', 'bash', 'c', 'diff', 'html', 'luadoc', 'query' },
-    }
-    vim.cmd 'TSUpdate'
-    vim.notify('Extra Tree-sitter languages loaded!', vim.log.levels.INFO)
-  end, { desc = 'Load additional Tree-sitter languages' }),
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    lazy = false, -- load with core so mappings are ready
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+
+    config = function()
+      -- Module setup (new API on main)
+      require('nvim-treesitter-textobjects').setup {
+        select = {
+          lookahead = true,
+          selection_modes = {
+            ['@parameter.outer'] = 'v',
+            ['@function.outer'] = 'V',
+            ['@class.outer'] = '<c-v>',
+          },
+          include_surrounding_whitespace = false,
+        },
+        move = {
+          set_jumps = true,
+        },
+      }
+
+      -- Keymaps per README (call module functions)
+      local select = require 'nvim-treesitter-textobjects.select'
+      local move = require 'nvim-treesitter-textobjects.move'
+      local rep = require 'nvim-treesitter-textobjects.repeatable_move'
+
+      -- selections
+      vim.keymap.set({ 'x', 'o' }, 'af', function()
+        select.select_textobject('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'x', 'o' }, 'if', function()
+        select.select_textobject('@function.inner', 'textobjects')
+      end)
+      vim.keymap.set({ 'x', 'o' }, 'ac', function()
+        select.select_textobject('@class.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'x', 'o' }, 'ic', function()
+        select.select_textobject('@class.inner', 'textobjects')
+      end)
+      vim.keymap.set({ 'x', 'o' }, 'as', function()
+        select.select_textobject('@local.scope', 'locals')
+      end)
+
+      -- movements
+      vim.keymap.set({ 'n', 'x', 'o' }, ']m', function()
+        move.goto_next_start('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[m', function()
+        move.goto_previous_start('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']M', function()
+        move.goto_next_end('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[M', function()
+        move.goto_previous_end('@function.outer', 'textobjects')
+      end)
+
+      -- repeat last movement with ; / ,
+      vim.keymap.set({ 'n', 'x', 'o' }, ';', rep.repeat_last_move_next)
+      vim.keymap.set({ 'n', 'x', 'o' }, ',', rep.repeat_last_move_previous)
+    end,
+  },
 }
--- vim: ts=2 sts=2 sw=2 et

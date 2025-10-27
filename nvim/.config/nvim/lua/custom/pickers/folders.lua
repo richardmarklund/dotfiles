@@ -5,7 +5,7 @@ local function resolve_root(opts)
   -- 1) Neo-tree root if available (so reveal stays within tree)
   local ok_mgr, mgr = pcall(require, 'neo-tree.sources.manager')
   if ok_mgr then
-    local state = mgr.get_state('filesystem')
+    local state = mgr.get_state 'filesystem'
     if state and state.path and state.path ~= '' then
       return state.path
     end
@@ -117,14 +117,14 @@ function M.search_folders(opts)
 
           local ok_cmd, nt_cmd = pcall(require, 'neo-tree.command')
           if ok_cmd then
-            nt_cmd.execute({
+            nt_cmd.execute {
               source = 'filesystem',
               position = 'left',
               reveal = true,
               reveal_file = path,
               reveal_force_cwd = false,
               toggle = false,
-            })
+            }
           else
             local escaped = vim.fn.fnameescape(path)
             vim.cmd('Neotree reveal=true reveal_file=' .. escaped .. ' reveal_force_cwd=false position=left')

@@ -42,7 +42,6 @@ nvm_lazy() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 }
-alias nvm="nvm_lazy; nvm"
 alias node="nvm_lazy; node"
 alias npm="nvm_lazy; npm"
 alias yarn="nvm_lazy; yarn"  # This loads nvm

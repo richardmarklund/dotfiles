@@ -5,9 +5,28 @@ return {
     { '<leader>aa', '<cmd>CodeCompanionActions<CR>', desc = 'Open CodeCompanion Actions' },
     { '<leader>ac', '<cmd>CodeCompanionChat<CR>', desc = 'Open CodeCompanion Chat' },
     { '<leader>ah', '<cmd>CodeCompanionHistory<CR>', desc = 'Open CodeCompanion Chat History' },
-    { '<leader>at', mode = 'v', function() require('codecompanion').prompt 'tests' end, desc = 'Generate unit tests' },
-    { '<leader>ae', function() require('codecompanion').prompt 'explain' end, desc = 'Explain buffer' },
-    { '<leader>al', function() require('codecompanion').prompt 'lsp' end, desc = 'Explain LSP diagnostics' },
+    {
+      '<leader>at',
+      mode = 'v',
+      function()
+        require('codecompanion').prompt 'tests'
+      end,
+      desc = 'Generate unit tests',
+    },
+    {
+      '<leader>ae',
+      function()
+        require('codecompanion').prompt 'explain'
+      end,
+      desc = 'Explain buffer',
+    },
+    {
+      '<leader>al',
+      function()
+        require('codecompanion').prompt 'lsp'
+      end,
+      desc = 'Explain LSP diagnostics',
+    },
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
