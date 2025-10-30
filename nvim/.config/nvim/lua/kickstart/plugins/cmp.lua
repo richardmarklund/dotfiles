@@ -53,7 +53,28 @@ return {
     completion = {
       -- Optional but nice
       trigger = { show_on_insert_on_trigger_character = true },
+      list = { selection = { preselect = true, auto_insert = false } },
       documentation = { auto_show = true },
+    },
+
+    keymap = {
+      preset = 'enter',
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' },
+      -- Prefer Copilot ghost text on <Tab>, otherwise fall back to snippets/cmp
+      ['<Tab>'] = {
+        function(cmp)
+          local ok, suggestion = pcall(require, 'copilot.suggestion')
+          if ok and suggestion.is_visible() then
+            suggestion.accept()
+            return true
+          end
+        end,
+        'snippet_forward',
+        'select_and_accept',
+        'fallback',
+      },
+      ['<CR>'] = { 'accept', 'fallback' },
     },
   },
 }
