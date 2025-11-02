@@ -5,38 +5,24 @@ return {
   dependencies = {
     'rafamadriz/friendly-snippets',
     'L3MON4D3/LuaSnip', -- snippets provider needs a snippet engine
-    'fang2hou/blink-copilot',
   },
   opts = {
     sources = {
-      -- enable LSP (gopls) + common fallbacks; keep Copilot too
-      default = { 'lsp', 'copilot', 'path', 'buffer', 'snippets' },
+      -- enable LSP (gopls) + common fallbacks
+      default = { 'lsp', 'path', 'buffer', 'snippets' },
 
       -- Per-filetype sources
       per_filetype = {
-        go = { 'lsp', 'copilot', 'path', 'buffer', 'snippets' },
-        lua = { 'lsp', 'copilot', 'path', 'buffer', 'snippets' },
+        go = { 'lsp', 'path', 'buffer', 'snippets' },
+        lua = { 'lsp', 'path', 'buffer', 'snippets' },
       },
 
       -- Only override providers you customize (keep built-ins untouched)
       providers = {
-        copilot = {
-          name = 'copilot',
-          module = 'blink-copilot',
-          score_offset = 100,
-          async = true,
-          transform_items = function(_, items)
-            local CompletionItemKind = require('blink.cmp.types').CompletionItemKind
-            for _, item in ipairs(items) do
-              item.kind = CompletionItemKind.Copilot
-            end
-            return items
-          end,
-        },
         lsp = {
           name = 'LSP',
           module = 'blink.cmp.sources.lsp',
-          score_offset = 90, -- Higher than Copilot for LSP items
+          score_offset = 90,
         },
         -- no need to define 'path', 'buffer', 'snippets' here;
         -- Blink's built-ins will register themselves
@@ -61,17 +47,32 @@ return {
       preset = 'enter',
       ['<Up>'] = { 'select_prev', 'fallback' },
       ['<Down>'] = { 'select_next', 'fallback' },
-      -- Prefer Copilot ghost text on <Tab>, otherwise fall back to snippets/cmp
+      ['<S-Tab>'] = {
+        'snippet_backward',
+        function()
+          local ok_sug, suggestion = pcall(require, 'copilot.suggestion')
+          if ok_sug and suggestion.is_visible() then
+            suggestion.dismiss()
+            return true
+          end
+        end,
+        'select_prev',
+        'fallback',
+      },
       ['<Tab>'] = {
-        function(cmp)
-          local ok, suggestion = pcall(require, 'copilot.suggestion')
-          if ok and suggestion.is_visible() then
+        'snippet_forward',
+        function()
+          local ok_sug, suggestion = pcall(require, 'copilot.suggestion')
+          if ok_sug and suggestion.is_visible() then
             suggestion.accept()
             return true
           end
         end,
-        'snippet_forward',
-        'select_and_accept',
+        function()
+          if vim.lsp and vim.lsp.inline_completion then
+            return vim.lsp.inline_completion.get()
+          end
+        end,
         'fallback',
       },
       ['<CR>'] = { 'accept', 'fallback' },

@@ -37,15 +37,6 @@ export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export XDG_CONFIG_HOME="/Users/ab000717/.config"
 
-export NVM_DIR="$HOME/.config/nvm"
-nvm_lazy() {
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
-alias node="nvm_lazy; node"
-alias npm="nvm_lazy; npm"
-alias yarn="nvm_lazy; yarn"  # This loads nvm
-
 
 # Created by `pipx` on 2024-12-10 14:29:43
 export PATH="$PATH:/Users/ab000717/.local/bin"

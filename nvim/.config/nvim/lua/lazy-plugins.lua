@@ -15,11 +15,14 @@ require('lazy').setup({
     lazy = true, -- should plugins be lazy-loaded?
   },
   require 'custom/plugins/snacks',
+  require 'custom/plugins/lualine',
   require 'custom/plugins/tiny-inline-diagnostic',
   require 'custom/plugins/codeaction',
   require 'custom/plugins/fidget',
   require 'custom/plugins/coverage',
   require 'custom/plugins/copilot',
+  require 'custom/plugins/copilot-lsp',
+  require 'custom/plugins/sidekick',
   require 'custom/plugins/vim-test',
   require 'custom/plugins/multicursor',
   require 'custom/plugins/companion',
@@ -61,7 +64,6 @@ require('lazy').setup({
   -- Debugger (DAP) with UI and Mason integration
   require 'kickstart/plugins/debug',
 
-  require 'kickstart/plugins/indent_line',
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

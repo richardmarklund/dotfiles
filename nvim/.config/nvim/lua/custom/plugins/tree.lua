@@ -37,6 +37,9 @@ return {
     'MunifTanjim/nui.nvim',
   },
   config = function()
+    local Snacks = require 'snacks'
+    local events = require 'neo-tree.events'
+
     require('neo-tree').setup {
       filesystem = {
         follow_current_file = {
@@ -45,6 +48,20 @@ return {
         preview = {
           enable = true,
           use_image_nvim = false,
+        },
+      },
+      event_handlers = {
+        {
+          event = events.FILE_MOVED,
+          handler = function(data)
+            Snacks.rename.on_rename_file(data.source, data.destination)
+          end,
+        },
+        {
+          event = events.FILE_RENAMED,
+          handler = function(data)
+            Snacks.rename.on_rename_file(data.source, data.destination)
+          end,
         },
       },
     }

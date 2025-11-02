@@ -42,28 +42,18 @@ return {
         end, { desc = 'Jump to previous git [c]hange' })
 
         -- Actions
-        -- visual mode
-        map('v', '<leader>gs', function()
-          gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'stage git hunk' })
-        map('v', '<leader>gr', function()
-          gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'reset git hunk' })
-        -- normal mode
-        map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
-        map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
-        map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-        map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
-        map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-        map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
         map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git [b]lame line' })
+        map('n', '<leader>gB', gitsigns.toggle_current_line_blame, { desc = 'git toggle [B]lame line' })
+        map('n', '<leader>gF', gitsigns.blame, { desc = 'git blame [F]ile' })
         map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
         map('n', '<leader>gD', function()
           gitsigns.diffthis '@'
         end, { desc = 'git [D]iff against last commit' })
+        map('n', '<leader>gm', function()
+          gitsigns.diffthis 'origin/main'
+        end, { desc = 'git diff against [m]ain' })
         -- Toggles
-        map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = 'git show [b]lame line' })
-        map('n', '<leader>gD', gitsigns.toggle_deleted, { desc = 'git show [D]eleted' })
+        map('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = 'git toggle [d]eleted lines' })
       end,
     },
   },
