@@ -1,5 +1,6 @@
 return {
   'copilotlsp-nvim/copilot-lsp',
+  event = 'VeryLazy',
   dependencies = {
     'zbirenbaum/copilot.lua',
   },

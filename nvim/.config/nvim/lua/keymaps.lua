@@ -86,7 +86,9 @@ vim.keymap.set('n', '<leader>wL', '<C-w>L', { desc = '[W]indow move far right' }
 vim.keymap.set('n', '<leader>wJ', '<C-w>J', { desc = '[W]indow move bottom' })
 vim.keymap.set('n', '<leader>wK', '<C-w>K', { desc = '[W]indow move top' })
 
--- Enhanced text manipulation
+-- Visual paste that does not yank the replaced text
+vim.keymap.set('x', 'p', '"_dP', { desc = 'Paste without yanking (visual p)' })
+
 vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste without yanking' })
 vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
@@ -152,5 +154,28 @@ vim.keymap.set('n', '<leader>ci', '<cmd>Telescope lsp_implementations<CR>', { de
 vim.keymap.set('n', '<leader>fs', '<cmd>w<CR>', { desc = '[F]ile [S]ave' })
 vim.keymap.set('n', '<leader>fq', '<cmd>wq<CR>', { desc = '[F]ile [S]ave and [Q]uit' })
 vim.keymap.set('n', '<leader>fn', '<cmd>enew<CR>', { desc = '[F]ile [N]ew' })
+
+-- Fold keymaps: keep only zo, zc, za, zR; disable others in n/x/o modes
+do
+  local disable = {
+    'zA', 'zC', 'zO', -- recursive variants
+    'zM', 'zm', 'zr', -- close all / foldlevel adjust
+    'zx', 'zX', 'zv', -- update/reveal
+    'zE',             -- eliminate all folds
+    'zd', 'zD',       -- delete folds
+    'zf', 'zF',       -- create folds
+    'zi', 'zn', 'zN', -- toggle/enable/disable folding
+    'zj', 'zk',       -- jump between folds
+    'zb', 'zt', 'zz', -- scroll/center variants
+    'zH', 'zL',       -- half screen left/right
+    'zg', 'zw', 'z=', -- spell and suggestions
+  }
+  local modes = { 'n', 'x', 'o' }
+  for _, lhs in ipairs(disable) do
+    for _, m in ipairs(modes) do
+      vim.keymap.set(m, lhs, '<Nop>', { silent = true })
+    end
+  end
+end
 
 -- vim: ts=2 sts=2 sw=2 et

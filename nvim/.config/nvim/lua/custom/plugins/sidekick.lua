@@ -14,7 +14,7 @@ return {
     {
       '<c-.>',
       function()
-        require('sidekick.cli').toggle()
+        require('sidekick.cli').toggle { name = 'codex', focus = true }
       end,
       desc = 'Sidekick Toggle CLI',
       mode = { 'n', 't', 'i', 'x' },
@@ -22,16 +22,9 @@ return {
     {
       '<leader>aa',
       function()
-        require('sidekick.cli').toggle()
+        require('sidekick.cli').toggle { name = 'codex', focus = true }
       end,
       desc = 'Sidekick Toggle CLI',
-    },
-    {
-      '<leader>as',
-      function()
-        require('sidekick.cli').select()
-      end,
-      desc = 'Sidekick Select CLI',
     },
     {
       '<leader>ad',
@@ -70,13 +63,6 @@ return {
       end,
       mode = { 'n', 'x' },
       desc = 'Sidekick Prompt Picker',
-    },
-    {
-      '<leader>ac',
-      function()
-        require('sidekick.cli').toggle { name = 'claude', focus = true }
-      end,
-      desc = 'Sidekick Toggle Claude',
     },
   },
 }

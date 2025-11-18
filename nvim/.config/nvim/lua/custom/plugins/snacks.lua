@@ -28,6 +28,9 @@ return {
     words = {
       -- keep defaults, configure later if needed
     },
+    notifier = {
+      -- keep defaults, configure later if needed
+    },
     gh = {
       -- keep defaults, configure later if needed
     },

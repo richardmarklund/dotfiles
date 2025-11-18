@@ -8,6 +8,9 @@
 
 return {
   'mfussenegger/nvim-dap',
+  -- Load on demand via keys or when `require('dap')` is called
+  module = 'dap',
+
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -23,25 +26,59 @@ return {
     'leoluz/nvim-dap-go',
   },
   keys = function(_, keys)
-    local dap = require 'dap'
-    local dapui = require 'dapui'
     return {
       -- Function keys (avoid clashes with normal/leader mappings)
-      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
-      { '<F10>', dap.step_over, desc = 'Debug: Step Over' },
-      { '<F11>', dap.step_into, desc = 'Debug: Step Into' },
-      { '<F12>', dap.step_out, desc = 'Debug: Step Out' },
+      {
+        '<F5>',
+        function()
+          require('dap').continue()
+        end,
+        desc = 'Debug: Start/Continue',
+      },
+      {
+        '<F10>',
+        function()
+          require('dap').step_over()
+        end,
+        desc = 'Debug: Step Over',
+      },
+      {
+        '<F11>',
+        function()
+          require('dap').step_into()
+        end,
+        desc = 'Debug: Step Into',
+      },
+      {
+        '<F12>',
+        function()
+          require('dap').step_out()
+        end,
+        desc = 'Debug: Step Out',
+      },
 
       -- Dedicated Debug group under <leader>D...
-      { '<leader>Db', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+      {
+        '<leader>Db',
+        function()
+          require('dap').toggle_breakpoint()
+        end,
+        desc = 'Debug: Toggle Breakpoint',
+      },
       {
         '<leader>DB',
         function()
-          dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+          require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
         end,
         desc = 'Debug: Conditional Breakpoint',
       },
-      { '<leader>Du', dapui.toggle, desc = 'Debug: Toggle UI' },
+      {
+        '<leader>Du',
+        function()
+          require('dapui').toggle()
+        end,
+        desc = 'Debug: Toggle UI',
+      },
       unpack(keys),
     }
   end,

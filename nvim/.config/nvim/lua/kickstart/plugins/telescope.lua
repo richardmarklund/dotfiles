@@ -93,6 +93,12 @@ return {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          fzf = {
+            fuzzy = true,
+            case_mode = 'smart_case',
+            override_generic_sorter = true,
+            override_file_sorter = true,
+          },
         },
       }
 
@@ -107,7 +113,18 @@ return {
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      -- Project-wide live grep (root)
+      vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+
+      -- Buffer-only search with dropdown theme (no preview)
+      vim.keymap.set('n', '<leader>sG', function()
+        require('telescope.builtin').current_buffer_fuzzy_find(
+          require('telescope.themes').get_dropdown {
+            previewer = false,
+            layout_config = { width = 0.95, height = 0.9 },
+          }
+        )
+      end, { desc = '[S]earch current buffer' })
       vim.keymap.set('n', '<leader>sd', function()
         builtin.diagnostics {
           file_ignore_patterns = { 'target/' },

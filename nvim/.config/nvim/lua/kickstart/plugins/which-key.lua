@@ -18,6 +18,11 @@ return {
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
+      plugins = {
+        presets = {
+          z = false, -- hide default z prefix (we will curate)
+        },
+      },
       icons = {
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
@@ -67,6 +72,13 @@ return {
         { '<leader>f', group = '[F]ile' },
         { '<leader>u', group = '[U]I' },
         { '<leader>m', group = '[M]ulti-cursor' },
+
+        -- Curate fold (z) help to only show the allowed ones
+        { 'z', group = 'Folds', mode = { 'n' } },
+        { 'za', desc = 'Toggle fold', mode = { 'n' } },
+        { 'zo', desc = 'Open fold under cursor', mode = { 'n' } },
+        { 'zc', desc = 'Close fold under cursor', mode = { 'n' } },
+        { 'zR', desc = 'Open all folds', mode = { 'n' } },
       },
     },
   },

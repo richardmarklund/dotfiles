@@ -1,0 +1,86 @@
+# ~/.config/aerospace/aerospace.toml
+# Compatible with AeroSpace v0.22+
+
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+[gaps]
+inner.horizontal = 8
+inner.vertical   = 8
+outer.left       = 8
+outer.right      = 8
+outer.top        = 8
+outer.bottom     = 8
+
+# Run Sketchybar together with AeroSpace
+# sketchbar has a built-in detection of already running process,
+# so it won't be run twice on AeroSpace restart
+after-startup-command = ['exec-and-forget sketchybar']
+
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+# ───── KEYBINDINGS ─────
+[mode.main.binding]
+alt-h = "focus left"
+alt-j = "focus down"
+alt-k = "focus up"
+alt-l = "focus right"
+
+alt-shift-h = "move left"
+alt-shift-j = "move down"
+alt-shift-k = "move up"
+alt-shift-l = "move right"
+
+alt-m = "resize smart -50"
+alt-a  = "resize smart +50"
+alt-comma  = "layout accordion horizontal vertical"
+alt-period = "layout floating tiling"
+
+# Workspaces
+alt-1 = ["workspace code",  "exec-and-forget sketchybar --trigger aero_ws_changed focused=code"]
+alt-2 = ["workspace web",   "exec-and-forget sketchybar --trigger aero_ws_changed focused=web"]
+alt-3 = ["workspace term",  "exec-and-forget sketchybar --trigger aero_ws_changed focused=term"]
+alt-4 = ["workspace chat",  "exec-and-forget sketchybar --trigger aero_ws_changed focused=chat"]
+alt-5 = ["workspace media", "exec-and-forget sketchybar --trigger aero_ws_changed focused=media"]
+
+alt-shift-1 = "move-node-to-workspace code"
+alt-shift-2 = "move-node-to-workspace web"
+alt-shift-3 = "move-node-to-workspace term"
+alt-shift-4 = "move-node-to-workspace chat"
+alt-shift-5 = "move-node-to-workspace media"
+
+alt-shift-semicolon = "mode service"
+
+# ───── SERVICE MODE ─────
+[mode.service.binding]
+esc = ["reload-config", "mode main"]
+r   = ["flatten-workspace-tree", "mode main"]
+f   = ["layout floating tiling", "mode main"]
+
+# ───── APP RULES ─────
+[[on-window-detected]]
+if.app-id = "com.github.wez.wezterm"
+run = "move-node-to-workspace code"
+
+[[on-window-detected]]
+# Zen Browser
+if.app-id = "app.zen-browser.zen"
+run = "move-node-to-workspace web"
+
+[[on-window-detected]]
+if.app-id = "com.tinyspeck.slackmacgap"
+run = "move-node-to-workspace chat"
+
+[[on-window-detected]]
+if.app-id = "com.spotify.client"
+run = "move-node-to-workspace media"
+
+[[on-window-detected]]
+if.app-id = "com.apple.finder"
+run = "layout floating"
+

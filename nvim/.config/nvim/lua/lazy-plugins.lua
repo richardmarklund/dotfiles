@@ -25,7 +25,6 @@ require('lazy').setup({
   require 'custom/plugins/sidekick',
   require 'custom/plugins/vim-test',
   require 'custom/plugins/multicursor',
-  require 'custom/plugins/companion',
   require 'custom/plugins/nio',
   require 'custom/plugins/dressing',
   require 'custom/plugins/printer',
@@ -41,6 +40,9 @@ require('lazy').setup({
 
   require 'custom/plugins/tmux-nvim-navigator',
 
+  require 'custom/plugins/ufo',
+  -- Integrate kitty scrollback with Neovim
+  require 'custom/plugins/kitty-scrollback',
   require 'kickstart/plugins/gitsigns',
 
   require 'kickstart/plugins/which-key',

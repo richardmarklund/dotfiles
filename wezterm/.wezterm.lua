@@ -10,9 +10,20 @@ wezterm.on("gui-startup", function(cmd)
 	local _, _, window = mux.spawn_window(cmd or {})
 	window:gui_window():maximize()
 end)
-
 config.color_scheme = "Catppuccin Mocha"
-config.font = wezterm.font("MesloLGL Nerd Font")
+-- Modern Cascadia Code includes ligatures in the default family
+config.font = wezterm.font_with_fallback({
+	{ family = "FiraCode Nerd Font" },
+	{ family = "Symbols Nerd Font" },
+	{ family = "Noto Color Emoji" },
+})
+-- Enable common ligatures
+config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
+-- Scale fallbacks to match cap height of primary font
+config.use_cap_height_to_scale_fallback_fonts = true
+config.font_size = 12
+config.line_height = 1.15
+
 config.window_decorations = "RESIZE"
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true

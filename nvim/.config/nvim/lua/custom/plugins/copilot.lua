@@ -1,7 +1,7 @@
 return {
   'zbirenbaum/copilot.lua',
   cmd = 'Copilot',
-  event = 'InsertEnter',
+  event = 'VeryLazy',
   opts = {
     suggestion = {
       enabled = true,
