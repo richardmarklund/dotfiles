@@ -72,7 +72,7 @@ return {
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Custom implementation function that auto-jumps if only one result
-          map('gi', function()
+          map('gI', function()
             vim.lsp.buf.implementation {
               on_list = function(options)
                 -- Filter out mock files

@@ -9,11 +9,14 @@ return {
     config = function()
       -- Install/ensure parsers (async; see README)
       -- Tip: keep this list small & relevant
-      require('nvim-treesitter').install({ 'go', 'gomod', 'lua', 'vim', 'bash', 'regex', 'vimdoc' }):wait(300000) -- optional bootstrap wait (max 5min) per README
+      require('nvim-treesitter').install({ 'go', 'gomod', 'lua', 'vim', 'bash', 'regex', 'vimdoc', 'http', 'json' }):wait(300000) -- optional bootstrap wait (max 5min) per README
+
+      -- Share the http parser with .rest files used by Kulala
+      pcall(vim.treesitter.language.register, 'http', 'rest')
 
       -- Start highlighting when filetype is set (exactly as README shows)
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'go', 'gomod', 'lua', 'vim', 'bash' },
+        pattern = { 'go', 'gomod', 'lua', 'vim', 'bash', 'http', 'rest' },
         callback = function()
           vim.treesitter.start()
         end,
@@ -75,14 +78,45 @@ return {
       vim.keymap.set({ 'n', 'x', 'o' }, ']m', function()
         move.goto_next_start('@function.outer', 'textobjects')
       end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']]', function()
+        move.goto_next_start('@class.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']o', function()
+        move.goto_next_start({ '@loop.inner', '@loop.outer' }, 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']s', function()
+        move.goto_next_start('@local.scope', 'locals')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']z', function()
+        move.goto_next_start('@fold', 'folds')
+      end)
+
       vim.keymap.set({ 'n', 'x', 'o' }, '[m', function()
         move.goto_previous_start('@function.outer', 'textobjects')
       end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[[', function()
+        move.goto_previous_start('@class.outer', 'textobjects')
+      end)
+
       vim.keymap.set({ 'n', 'x', 'o' }, ']M', function()
         move.goto_next_end('@function.outer', 'textobjects')
       end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '][', function()
+        move.goto_next_end('@class.outer', 'textobjects')
+      end)
+
       vim.keymap.set({ 'n', 'x', 'o' }, '[M', function()
         move.goto_previous_end('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[]', function()
+        move.goto_previous_end('@class.outer', 'textobjects')
+      end)
+
+      vim.keymap.set({ 'n', 'x', 'o' }, ']d', function()
+        move.goto_next('@conditional.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[d', function()
+        move.goto_previous('@conditional.outer', 'textobjects')
       end)
 
       -- repeat last movement with ; / ,

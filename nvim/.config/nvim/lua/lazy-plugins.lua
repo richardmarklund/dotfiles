@@ -14,6 +14,7 @@ require('lazy').setup({
   defaults = {
     lazy = true, -- should plugins be lazy-loaded?
   },
+  require 'custom/plugins/kulala',
   require 'custom/plugins/snacks',
   require 'custom/plugins/lualine',
   require 'custom/plugins/tiny-inline-diagnostic',

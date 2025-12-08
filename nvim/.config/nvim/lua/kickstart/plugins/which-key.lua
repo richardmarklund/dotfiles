@@ -79,6 +79,21 @@ return {
         { 'zo', desc = 'Open fold under cursor', mode = { 'n' } },
         { 'zc', desc = 'Close fold under cursor', mode = { 'n' } },
         { 'zR', desc = 'Open all folds', mode = { 'n' } },
+
+        -- Treesitter textobjects (selection)
+        { 'af', desc = 'TS: outer function', mode = { 'x', 'o' } },
+        { 'if', desc = 'TS: inner function', mode = { 'x', 'o' } },
+        { 'ac', desc = 'TS: outer class', mode = { 'x', 'o' } },
+        { 'ic', desc = 'TS: inner class', mode = { 'x', 'o' } },
+        { 'as', desc = 'TS: local scope', mode = { 'x', 'o' } },
+
+        -- Treesitter textobjects (movement)
+        { ']m', desc = 'TS: next function start', mode = { 'n', 'x', 'o' } },
+        { '[m', desc = 'TS: prev function start', mode = { 'n', 'x', 'o' } },
+        { ']M', desc = 'TS: next function end', mode = { 'n', 'x', 'o' } },
+        { '[M', desc = 'TS: prev function end', mode = { 'n', 'x', 'o' } },
+        { ';', desc = 'TS: repeat last move', mode = { 'n', 'x', 'o' } },
+        { ',', desc = 'TS: repeat last move (back)', mode = { 'n', 'x', 'o' } },
       },
     },
   },
