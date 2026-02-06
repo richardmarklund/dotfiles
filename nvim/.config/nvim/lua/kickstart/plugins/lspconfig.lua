@@ -46,6 +46,7 @@ return {
         severity_sort = true,
         float = false, -- Disable floating diagnostic windows
       }
+      local Snacks = require 'snacks'
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       -- Enable LSP-powered folding (used by gopls and others)
       capabilities.textDocument = capabilities.textDocument or {}
@@ -66,43 +67,28 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc, noremap = true, silent = true })
           end
 
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', Snacks.picker.lsp_definitions, '[G]oto [D]efinition')
 
-          -- Ensure gr directly opens telescope references without submenu
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          -- Ensure gr directly opens picker references without submenu
+          map('gr', Snacks.picker.lsp_references, '[G]oto [R]eferences')
 
-          -- Custom implementation function that auto-jumps if only one result
+          -- Implementations: filter out mock files and auto-confirm single hits
           map('gI', function()
-            vim.lsp.buf.implementation {
-              on_list = function(options)
-                -- Filter out mock files
-                local filtered_items = vim.tbl_filter(function(item)
-                  return not string.find(string.lower(item.filename), 'mock')
-                end, options.items)
-
-                if #filtered_items == 0 then
-                  vim.notify('No implementations found', vim.log.levels.INFO)
-                  return
-                elseif #filtered_items == 1 then
-                  -- Jump directly to single result
-                  local item = filtered_items[1]
-                  vim.cmd('edit ' .. item.filename)
-                  vim.api.nvim_win_set_cursor(0, { item.lnum, item.col })
-                else
-                  -- Use telescope for multiple results
-                  -- Update options with filtered items
-                  options.items = filtered_items
-                  require('telescope.builtin').lsp_implementations()
-                end
-              end,
+            Snacks.picker.lsp_implementations {
+              filter = {
+                filter = function(item)
+                  local path = item.file or item.filename
+                  return not (path and string.find(string.lower(path), 'mock'))
+                end,
+              },
             }
           end, '[G]oto [I]mplementation')
 
-          map('<leader>cd', require('telescope.builtin').lsp_type_definitions, '[C]ode type [D]efinition')
+          map('<leader>cd', Snacks.picker.lsp_type_definitions, '[C]ode type [D]efinition')
 
-          map('<leader>dS', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>dS', Snacks.picker.lsp_symbols, '[D]ocument [S]ymbols')
 
-          map('<leader>cs', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[C]ode workspace [S]ymbols')
+          map('<leader>cs', Snacks.picker.lsp_workspace_symbols, '[C]ode workspace [S]ymbols')
 
           map('<leader>cn', vim.lsp.buf.rename, '[C]ode re[N]ame')
 

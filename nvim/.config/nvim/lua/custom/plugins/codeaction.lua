@@ -2,7 +2,6 @@ return {
   'aznhe21/actions-preview.nvim',
   event = 'LspAttach',
   dependencies = {
-    { 'nvim-telescope/telescope.nvim', optional = true },
     { 'MunifTanjim/nui.nvim', optional = true },
     { 'folke/snacks.nvim', optional = true },
   },
@@ -17,11 +16,11 @@ return {
     },
   },
   opts = (function()
-    -- Build opts without eagerly requiring telescope to avoid startup errors
+    -- Build opts without eagerly requiring optional pickers to avoid startup errors
     local opts = {
       diff = { ctxlen = 4 },
       highlight_command = {},
-      backend = { 'telescope', 'snacks', 'minipick', 'nui' },
+      backend = { 'snacks', 'minipick', 'nui' },
       nui = {
         dir = 'col',
         keymap = nil,
@@ -43,24 +42,6 @@ return {
       },
       snacks = { layout = { preset = 'default' } },
     }
-
-    local ok, themes = pcall(require, 'telescope.themes')
-    if ok and themes and type(themes.get_dropdown) == 'function' then
-      opts.telescope = vim.tbl_extend(
-        'force',
-        themes.get_ivy {
-          layout_config = { height = 0.45, preview_width = 0.7 },
-          previewer = true,
-        },
-        {
-          make_value = nil,
-          make_make_display = nil,
-        }
-      )
-    else
-      -- Safe minimal telescope config when telescope isn't available yet
-      opts.telescope = { make_value = nil, make_make_display = nil }
-    end
 
     return opts
   end)(),

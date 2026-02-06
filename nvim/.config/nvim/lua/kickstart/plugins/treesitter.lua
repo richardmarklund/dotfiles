@@ -9,23 +9,19 @@ return {
     config = function()
       -- Install/ensure parsers (async; see README)
       -- Tip: keep this list small & relevant
-      require('nvim-treesitter').install({ 'go', 'gomod', 'lua', 'vim', 'bash', 'regex', 'vimdoc', 'http', 'json' }):wait(300000) -- optional bootstrap wait (max 5min) per README
+      require('nvim-treesitter').install({ 'go', 'gomod', 'lua', 'vim', 'bash', 'regex', 'vimdoc', 'http', 'json', 'templ' }):wait(300000) -- optional bootstrap wait (max 5min) per README
 
       -- Share the http parser with .rest files used by Kulala
       pcall(vim.treesitter.language.register, 'http', 'rest')
 
       -- Start highlighting when filetype is set (exactly as README shows)
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'go', 'gomod', 'lua', 'vim', 'bash', 'http', 'rest' },
+        pattern = { 'go', 'gomod', 'lua', 'vim', 'bash', 'http', 'rest', 'templ' },
         callback = function()
           vim.treesitter.start()
         end,
         group = vim.api.nvim_create_augroup('TSMainStart', { clear = true }),
       })
-
-      -- Optional: Treesitter folds/indent (see README “Supported features”)
-      -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
   },
 

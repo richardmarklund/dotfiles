@@ -121,17 +121,6 @@ vim.keymap.set('n', '<leader>bp', '<cmd>bprev<CR>', { desc = '[B]uffer [P]reviou
 vim.keymap.set('n', '<leader>bd', '<cmd>bdelete<CR>', { desc = '[B]uffer [D]elete' })
 vim.keymap.set('n', '<leader>bl', '<cmd>buffers<CR>', { desc = '[B]uffer [L]ist' })
 
--- Smart search enhancements (lazy loaded)
-vim.keymap.set('n', '<leader>sw', function()
-  local word = vim.fn.expand '<cword>'
-  vim.cmd('Telescope grep_string search=' .. word)
-end, { desc = '[S]earch [W]ord under cursor' })
-
-vim.keymap.set('n', '<leader>sW', function()
-  local word = vim.fn.expand '<cWORD>'
-  vim.cmd('Telescope grep_string search=' .. word)
-end, { desc = '[S]earch [W]ord under cursor (WORD)' })
-
 -- Search directories and reveal selection in Neo-tree
 vim.keymap.set('n', '<leader>se', function()
   require('custom.pickers.folders').search_folders()
@@ -145,11 +134,6 @@ end, {})
 -- Git workflow enhancements
 -- Use LazyGit (<leader>l) from plugin; remove fugitive-only maps
 
--- Code navigation enhancements (lazy loaded)
-vim.keymap.set('n', '<leader>cd', '<cmd>Telescope lsp_definitions<CR>', { desc = '[C]ode [D]efinition' })
-vim.keymap.set('n', '<leader>cr', '<cmd>Telescope lsp_references<CR>', { desc = '[C]ode [R]eferences' })
-vim.keymap.set('n', '<leader>ci', '<cmd>Telescope lsp_implementations<CR>', { desc = '[C]ode [I]mplementations' })
-
 -- Quick file operations
 vim.keymap.set('n', '<leader>fs', '<cmd>w<CR>', { desc = '[F]ile [S]ave' })
 vim.keymap.set('n', '<leader>fq', '<cmd>wq<CR>', { desc = '[F]ile [S]ave and [Q]uit' })
@@ -158,17 +142,33 @@ vim.keymap.set('n', '<leader>fn', '<cmd>enew<CR>', { desc = '[F]ile [N]ew' })
 -- Fold keymaps: keep only zo, zc, za, zR; disable others in n/x/o modes
 do
   local disable = {
-    'zA', 'zC', 'zO', -- recursive variants
-    'zM', 'zm', 'zr', -- close all / foldlevel adjust
-    'zx', 'zX', 'zv', -- update/reveal
-    'zE',             -- eliminate all folds
-    'zd', 'zD',       -- delete folds
-    'zf', 'zF',       -- create folds
-    'zi', 'zn', 'zN', -- toggle/enable/disable folding
-    'zj', 'zk',       -- jump between folds
-    'zb', 'zt', 'zz', -- scroll/center variants
-    'zH', 'zL',       -- half screen left/right
-    'zg', 'zw', 'z=', -- spell and suggestions
+    'zA',
+    'zC',
+    'zO', -- recursive variants
+    'zM',
+    'zm',
+    'zr', -- close all / foldlevel adjust
+    'zx',
+    'zX',
+    'zv', -- update/reveal
+    'zE', -- eliminate all folds
+    'zd',
+    'zD', -- delete folds
+    'zf',
+    'zF', -- create folds
+    'zi',
+    'zn',
+    'zN', -- toggle/enable/disable folding
+    'zj',
+    'zk', -- jump between folds
+    'zb',
+    'zt',
+    'zz', -- scroll/center variants
+    'zH',
+    'zL', -- half screen left/right
+    'zg',
+    'zw',
+    'z=', -- spell and suggestions
   }
   local modes = { 'n', 'x', 'o' }
   for _, lhs in ipairs(disable) do

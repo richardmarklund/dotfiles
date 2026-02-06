@@ -156,17 +156,9 @@ After installing all the dependencies continue with the [Install Kickstart](#Ins
 #### Windows Installation
 
 <details><summary>Windows with Microsoft C++ Build Tools and CMake</summary>
-Installation may require installing build tools and updating the run command for `telescope-fzf-native`
-
-See `telescope-fzf-native` documentation for [more details](https://github.com/nvim-telescope/telescope-fzf-native.nvim#installation)
-
-This requires:
-
-- Install CMake and the Microsoft C++ Build Tools on Windows
-
-```lua
-{'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-```
+television.nvim requires the standalone `tv` binary to be available in your `PATH`.
+Follow the installation instructions in the [tv.nvim README](https://github.com/alexpasmantier/tv.nvim)
+for platform-specific steps and prebuilt binaries.
 </details>
 <details><summary>Windows with gcc/make using chocolatey</summary>
 Alternatively, one can install gcc and make which don't require changing the config,
@@ -235,4 +227,3 @@ sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
 sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 ```
 </details>
-

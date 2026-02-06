@@ -47,7 +47,7 @@ return {
             save_chat_keymap = 'sc',
             auto_save = true,
             expiration_days = 0,
-            picker = 'telescope',
+            picker = 'snacks',
             picker_keymaps = {
               rename = { n = 'r', i = '<M-r>' },
               delete = { n = 'd', i = '<M-d>' },

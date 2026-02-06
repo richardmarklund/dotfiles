@@ -1,3 +1,5 @@
+local Snacks = require 'snacks'
+
 local M = {}
 
 -- Resolve a sensible root for directory scanning
@@ -12,9 +14,12 @@ local function resolve_root(opts)
   end
 
   -- 2) Current buffer's directory
-  local buf_dir = require('telescope.utils').buffer_dir()
-  if buf_dir and buf_dir ~= '' then
-    return buf_dir
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if bufname and bufname ~= '' then
+    local buf_dir = vim.fn.fnamemodify(bufname, ':p:h')
+    if buf_dir and buf_dir ~= '' then
+      return buf_dir
+    end
   end
 
   -- 3) Editor working directory
@@ -52,16 +57,9 @@ local function collect_dirs_uv(root, max_depth)
   return results
 end
 
--- Telescope picker to search directories and reveal selection in Neo-tree
+-- Snacks picker to search directories and reveal selection in Neo-tree
 function M.search_folders(opts)
   opts = opts or {}
-
-  local pickers = require 'telescope.pickers'
-  local finders = require 'telescope.finders'
-  local conf = require('telescope.config').values
-  local actions = require 'telescope.actions'
-  local action_state = require 'telescope.actions.state'
-  local utils = require 'telescope.utils'
 
   local root = resolve_root(opts)
   local depth = opts.depth or 15
@@ -88,55 +86,45 @@ function M.search_folders(opts)
     vim.notify('No directories found under: ' .. root, vim.log.levels.WARN)
   end
 
-  local function entry_maker(path)
-    return {
-      value = path,
-      display = utils.transform_path({ cwd = root }, path),
-      ordinal = path,
-    }
+  local items = {}
+  for _, path in ipairs(results) do
+    local rel = vim.fs.normalize(vim.fs.relpath(path, root) or path)
+    items[#items + 1] = { file = path, text = rel }
   end
 
-  pickers
-    .new(opts, {
-      prompt_title = 'Search Folders (' .. root .. ')',
-      finder = finders.new_table {
-        results = results,
-        entry_maker = entry_maker,
-      },
-      sorter = conf.generic_sorter(opts),
-      previewer = false,
-      attach_mappings = function(bufnr, map)
-        local function reveal_in_neotree()
-          local selection = action_state.get_selected_entry()
-          if not selection or not selection.value then
-            require('telescope.actions').close(bufnr)
-            return
-          end
-          require('telescope.actions').close(bufnr)
-          local path = selection.value
+  local function reveal(path)
+    local ok_cmd, nt_cmd = pcall(require, 'neo-tree.command')
+    if ok_cmd then
+      nt_cmd.execute {
+        source = 'filesystem',
+        position = 'left',
+        reveal = true,
+        reveal_file = path,
+        reveal_force_cwd = false,
+        toggle = false,
+      }
+      return
+    end
 
-          local ok_cmd, nt_cmd = pcall(require, 'neo-tree.command')
-          if ok_cmd then
-            nt_cmd.execute {
-              source = 'filesystem',
-              position = 'left',
-              reveal = true,
-              reveal_file = path,
-              reveal_force_cwd = false,
-              toggle = false,
-            }
-          else
-            local escaped = vim.fn.fnameescape(path)
-            vim.cmd('Neotree reveal=true reveal_file=' .. escaped .. ' reveal_force_cwd=false position=left')
-          end
-        end
+    local escaped = vim.fn.fnameescape(path)
+    vim.cmd('Neotree reveal=true reveal_file=' .. escaped .. ' reveal_force_cwd=false position=left')
+  end
 
-        map('i', '<CR>', reveal_in_neotree)
-        map('n', '<CR>', reveal_in_neotree)
-        return true
-      end,
-    })
-    :find()
+  Snacks.picker {
+    source = 'folders',
+    prompt = 'Search Folders (' .. root .. ')',
+    items = items,
+    format = 'file',
+    win = { preview = { hidden = true } },
+    sort = { fields = { 'text' } },
+    confirm = function(picker, item)
+      picker:close()
+      if not item or not item.file then
+        return
+      end
+      reveal(item.file)
+    end,
+  }
 end
 
 return M
