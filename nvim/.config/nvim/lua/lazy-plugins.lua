@@ -44,6 +44,7 @@ require('lazy').setup({
   require 'custom/plugins/ufo',
   -- Integrate kitty scrollback with Neovim
   require 'custom/plugins/kitty-scrollback',
+  require 'custom/plugins/grug-far',
   require 'kickstart/plugins/gitsigns',
 
   require 'kickstart/plugins/which-key',

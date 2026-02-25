@@ -40,6 +40,9 @@ return {
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
       formatters = {
+        goimports = {
+          prepend_args = { '-w' },
+        },
         prettier = {
           prepend_args = function()
             return { '--print-width', '120', '--prose-wrap', 'always' }

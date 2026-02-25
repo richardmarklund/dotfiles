@@ -189,6 +189,14 @@ return {
             },
           },
         },
+        ts_ls = {
+          filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+          root_dir = function(fname)
+            local util = require 'lspconfig.util'
+            return util.root_pattern('tsconfig.json', 'jsconfig.json', 'package.json', '.git')(fname)
+          end,
+          single_file_support = true,
+        },
         -- Cucumber/Gherkin LSP (supports Godog step discovery)
         cucumber_language_server = {
           -- Use system/global/local binary if available
@@ -276,7 +284,7 @@ return {
         handlers = {
           function(server_name)
             -- Skip servers we set up manually to avoid duplicates
-            if server_name == 'cucumber_language_server' or server_name == 'gopls' then
+            if server_name == 'cucumber_language_server' or server_name == 'gopls' or server_name == 'ts_ls' then
               return
             end
 
@@ -313,6 +321,16 @@ return {
         require('lspconfig').gopls.setup(opts)
       end
 
+      -- Manual setup for ts_ls so JavaScript/TypeScript always attach consistently
+      do
+        local server_opts = servers['ts_ls'] or {}
+        local opts = vim.tbl_deep_extend('force', {
+          capabilities = capabilities,
+          settings = {},
+        }, server_opts)
+        require('lspconfig').ts_ls.setup(opts)
+      end
+
       -- Command to install LSP servers on demand
       vim.api.nvim_create_user_command('LSPInstall', function(opts)
         local server = opts.args
@@ -327,7 +345,6 @@ return {
       -- Command to manually enable LSP for current buffer
       vim.api.nvim_create_user_command('LSPEnable', function()
         local bufnr = vim.api.nvim_get_current_buf()
-        local filename = vim.api.nvim_buf_get_name(bufnr)
         local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
 
         -- Try to find appropriate server for filetype
@@ -336,6 +353,8 @@ return {
           server_name = 'lua_ls'
         elseif filetype == 'go' then
           server_name = 'gopls'
+        elseif filetype == 'javascript' or filetype == 'javascriptreact' or filetype == 'typescript' or filetype == 'typescriptreact' then
+          server_name = 'ts_ls'
         end
 
         if server_name then
