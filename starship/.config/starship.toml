@@ -11,7 +11,10 @@ disabled = false
 threshold = 50 
 
 [aws]
-disabled = false 
+disabled = false
+
+[gcloud]
+disabled = true
 
 [kubernetes]
 style = 'bright-cyan'
