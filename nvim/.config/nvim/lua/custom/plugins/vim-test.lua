@@ -3,6 +3,7 @@ return {
     'nvim-neotest/neotest',
     dependencies = {
       'nvim-neotest/nvim-nio',
+      { 'rcasia/neotest-java', dependencies = { 'mfussenegger/nvim-jdtls', 'mfussenegger/nvim-dap' } },
       'nvim-lua/plenary.nvim',
       'antoinemadec/FixCursorHold.nvim',
       {
@@ -190,6 +191,7 @@ return {
 
       require('neotest').setup {
         adapters = {
+          require('custom.neotest_java').adapter(),
           require 'neotest-golang' {
             runner = 'gotestsum', -- Optional, but recommended
             warn_test_name_dupes = false,
@@ -207,6 +209,9 @@ return {
         consumers = {
           snacks_failures = function(client)
             client.listeners.results = function(adapter_id, results, partial)
+              if not adapter_id:match '^neotest%-golang' then
+                return
+              end
               if partial then
                 return
               end

@@ -55,7 +55,7 @@ vim.keymap.set('n', '<leader>wm', '<C-w>_<C-w>|', { desc = '[W]indow [M]aximize'
 local function is_neotree_open()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
-    local filetype = vim.api.nvim_buf_get_option(buf, 'filetype')
+    local filetype = vim.bo[buf].filetype
     if filetype == 'neo-tree' then
       return true, win
     end

@@ -29,7 +29,7 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'goimports' },
+        go = { 'gofumpt' },
         javascript = { 'prettier' },
         html = { 'prettier' },
         telekasten = { 'prettier' },
@@ -40,9 +40,6 @@ return {
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
       formatters = {
-        goimports = {
-          prepend_args = { '-w' },
-        },
         prettier = {
           prepend_args = function()
             return { '--print-width', '120', '--prose-wrap', 'always' }

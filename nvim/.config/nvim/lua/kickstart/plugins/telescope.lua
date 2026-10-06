@@ -118,12 +118,10 @@ return {
 
       -- Buffer-only search with dropdown theme (no preview)
       vim.keymap.set('n', '<leader>sG', function()
-        require('telescope.builtin').current_buffer_fuzzy_find(
-          require('telescope.themes').get_dropdown {
-            previewer = false,
-            layout_config = { width = 0.95, height = 0.9 },
-          }
-        )
+        require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          previewer = false,
+          layout_config = { width = 0.95, height = 0.9 },
+        })
       end, { desc = '[S]earch current buffer' })
       vim.keymap.set('n', '<leader>sd', function()
         builtin.diagnostics {

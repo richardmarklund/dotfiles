@@ -4,7 +4,9 @@ return {
   version = '*',
   dependencies = {
     'rafamadriz/friendly-snippets',
-    'L3MON4D3/LuaSnip', -- snippets provider needs a snippet engine
+    -- snippets provider needs a snippet engine; jsregexp enables LSP snippet
+    -- variable/placeholder transformations, and the build must survive updates
+    { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
   },
   opts = {
     sources = {

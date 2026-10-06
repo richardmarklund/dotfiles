@@ -48,14 +48,16 @@ return {
       }
       local Snacks = require 'snacks'
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+      local configure_server = function(server_name, opts)
+        vim.lsp.config(server_name, opts)
+        vim.lsp.enable(server_name)
+      end
       -- Enable LSP-powered folding (used by gopls and others)
       capabilities.textDocument = capabilities.textDocument or {}
       capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
-      require('lspconfig').lua_ls.setup { capabilities = capabilities }
+      configure_server('lua_ls', { capabilities = capabilities })
 
-      -- Formatting handled by conform.nvim (goimports)
-
-      -- Use only conform.nvim for Go formatting/imports (goimports)
+      -- Formatting handled by conform.nvim (gofumpt)
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -97,7 +99,7 @@ return {
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -120,10 +122,26 @@ return {
             })
           end
 
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>ch', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[C]ode toggle [H]ints')
+          end
+
+          if client and client.name == 'gopls' then
+            local go_imports_group = vim.api.nvim_create_augroup('kickstart-go-organize-imports', { clear = false })
+            vim.api.nvim_clear_autocmds { group = go_imports_group, buffer = event.buf }
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              group = go_imports_group,
+              buffer = event.buf,
+              callback = function()
+                vim.lsp.buf.code_action {
+                  context = { only = { 'source.organizeImports' } },
+                  apply = true,
+                  async = false,
+                }
+              end,
+            })
           end
         end,
       })
@@ -277,7 +295,9 @@ return {
       }
 
       require('mason-lspconfig').setup {
-        automatic_enable = true, -- Enable automatic enabling
+        -- jdtls is started per-buffer from ftplugin/java.lua, which resolves the Maven
+        -- reactor root. Letting mason enable it too would start a second, wrongly rooted client.
+        automatic_enable = { exclude = { 'jdtls' } },
         ensure_installed = {}, -- Don't auto-install on startup (keep manual)
         automatic_installation = false, -- Disable automatic installation
 
@@ -296,7 +316,7 @@ return {
               settings = {},
             }, server_opts)
 
-            require('lspconfig')[server_name].setup(opts)
+            configure_server(server_name, opts)
           end,
         },
       }
@@ -308,7 +328,7 @@ return {
           capabilities = capabilities,
           settings = {},
         }, server_opts)
-        require('lspconfig').cucumber_language_server.setup(opts)
+        configure_server('cucumber_language_server', opts)
       end
 
       -- Manual setup for gopls (installed outside Mason)
@@ -318,7 +338,7 @@ return {
           capabilities = capabilities,
           settings = {},
         }, server_opts)
-        require('lspconfig').gopls.setup(opts)
+        configure_server('gopls', opts)
       end
 
       -- Manual setup for ts_ls so JavaScript/TypeScript always attach consistently
@@ -328,7 +348,7 @@ return {
           capabilities = capabilities,
           settings = {},
         }, server_opts)
-        require('lspconfig').ts_ls.setup(opts)
+        configure_server('ts_ls', opts)
       end
 
       -- Command to install LSP servers on demand
@@ -345,7 +365,7 @@ return {
       -- Command to manually enable LSP for current buffer
       vim.api.nvim_create_user_command('LSPEnable', function()
         local bufnr = vim.api.nvim_get_current_buf()
-        local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+        local filetype = vim.bo[bufnr].filetype
 
         -- Try to find appropriate server for filetype
         local server_name = nil
@@ -364,8 +384,7 @@ return {
             settings = {},
           }, server_opts)
 
-          require('lspconfig')[server_name].setup(opts)
-          require('lspconfig')[server_name].manager:try_add_wrapper(bufnr)
+          configure_server(server_name, opts)
           vim.notify('LSP enabled for ' .. server_name, vim.log.levels.INFO)
         else
           vim.notify('No LSP server configured for filetype: ' .. filetype, vim.log.levels.WARN)

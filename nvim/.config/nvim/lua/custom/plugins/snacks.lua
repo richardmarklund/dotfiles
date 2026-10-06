@@ -3,6 +3,10 @@ return {
   ---@type snacks.Config
   opts = {
     lazygit = {},
+    -- Not used; declared explicitly so its tooling requirements are an intentional no.
+    image = { enabled = false },
+    -- Owns vim.ui.input (LSP rename and friends), replacing dressing.nvim.
+    input = {},
     indent = {
       -- keep defaults, configure later if needed
     },
@@ -241,4 +245,5 @@ return {
     },
   },
   lazy = false,
+  priority = 1000, -- load before other plugins, per :checkhealth snacks
 }

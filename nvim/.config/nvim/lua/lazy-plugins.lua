@@ -27,7 +27,7 @@ require('lazy').setup({
   require 'custom/plugins/vim-test',
   require 'custom/plugins/multicursor',
   require 'custom/plugins/nio',
-  require 'custom/plugins/dressing',
+  require 'custom/plugins/java',
   require 'custom/plugins/printer',
   require 'custom/plugins/tree',
 
@@ -42,8 +42,6 @@ require('lazy').setup({
   require 'custom/plugins/tmux-nvim-navigator',
 
   require 'custom/plugins/ufo',
-  -- Integrate kitty scrollback with Neovim
-  require 'custom/plugins/kitty-scrollback',
   require 'custom/plugins/grug-far',
   require 'kickstart/plugins/gitsigns',
 
@@ -83,6 +81,8 @@ require('lazy').setup({
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
 }, {
+  -- No plugin here needs luarocks, so skip the Lua 5.1 probing and its warnings.
+  rocks = { enabled = false },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
